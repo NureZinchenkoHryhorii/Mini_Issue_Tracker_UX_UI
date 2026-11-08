@@ -40,7 +40,7 @@ Mini Issue Tracker — внутрішній вебзастосунок для р
 - SR-11 AI priority recommendation — Future.
 - Інтеграції, видалення issue, change history та інші функції поза Release MVP.
 
-### 1.4. Запропонована інструкцією G2 структура (D-01 погоджено; D-02 не погоджено)
+### 1.4. Структура G2 (D-01 і D-02 погоджено)
 
 | ID | Тип | Назва |
 |---|---|---|
@@ -284,29 +284,29 @@ Source: US-06; BR щодо comments.
 | T-04 | S-02-A | Team Member / Team Lead | Вибір issue | Issue існує у списку | S-03 | Відображаються деталі вибраного issue | US-02 |
 | T-05 | S-02-B | Team Member / Team Lead | Вибір Important issue | Issue відповідає Important predicate | S-03 | Відображаються деталі вибраного issue | US-08; US-02 |
 | T-06 | S-02-A | Team Member / Team Lead | Натискання Create Issue | Користувач автентифікований | M-01 | Відкривається форма створення | US-01 |
-| T-07 | S-02-B | Team Member / Team Lead | Натискання Create Issue | Користувач автентифікований | M-01 | Відкривається форма створення; попередній list state зберігається як контекст повернення | US-01; навігаційне рішення потребує підтвердження |
+| T-07 | S-02-B | Team Member / Team Lead | Натискання Create Issue | Користувач автентифікований | M-01 | Відкривається форма створення; попередній list state зберігається як контекст повернення | US-01; APPROVED D-07 |
 | T-08 | M-01 | Team Member / Team Lead | Cancel | Форма відкрита | Попередній стан S-02-A або S-02-B | Modal закривається; новий issue не створюється; введені дані не стають issue | US-01; G2 instruction |
 | T-09 | M-01 | Team Member / Team Lead | Create / Submit | Title і Description заповнені; issue успішно створено | S-03 нового issue | Modal закривається; S-03 показує ID, author, created_at, status Open, priority Not Set і деталі саме новоствореного issue | US-01 AC-01.1–01.5; BR-03/04; **APPROVED D-09 (Q-11), не SOURCE** |
-| T-10 | S-03 | Team Lead | Зміна assignee | Поточний користувач — Team Lead | S-03 | Issue має нового assignee | US-03; permission BR |
+| T-10 | S-03 | Team Lead | Вибір одного assignee → Apply | Поточний користувач — Team Lead; assignee є членом команди, збереження успішне | S-03 | Issue має нового assignee | US-03; permission BR |
 | T-11 | S-03 | Team Member | Спроба змінити assignee | Користувач не Team Lead | Перехід відсутній | Assignee не змінюється | US-03; permission BR |
-| T-12 | S-03 | Team Lead | Зміна priority | Поточний користувач — Team Lead; вибрано дозволене значення | S-03 | Priority оновлюється | US-04; permission BR |
+| T-12 | S-03 | Team Lead | Вибір priority → Apply | Поточний користувач — Team Lead; вибрано Low/Normal/High/Critical, збереження успішне | S-03 | Priority оновлюється | US-04; permission BR |
 | T-13 | S-03 | Team Member | Спроба змінити priority | Користувач не Team Lead | Перехід відсутній | Priority не змінюється | US-04; permission BR |
-| T-14 | S-03 | Поточний assignee | Open → In Progress | Поточний користувач є assignee; поточний status = Open | S-03 | Status змінюється на In Progress | US-05; US-07; transition BR |
-| T-15 | S-03 | Поточний assignee | In Progress → Resolved | Поточний користувач є assignee; поточний status = In Progress | S-03 | Status змінюється на Resolved | US-05; US-07; transition BR |
-| T-16 | S-03 | Поточний assignee | Resolved → Closed | Поточний користувач є assignee; поточний status = Resolved | S-03 | Status змінюється на Closed | US-05; US-07; transition BR |
-| T-17 | S-03 | Поточний assignee | Resolved → In Progress | Поточний користувач є assignee; поточний status = Resolved | S-03 | Issue повертається в роботу зі статусом In Progress | US-05; US-07; transition BR |
+| T-14 | S-03 | Поточний assignee | Вибрати In Progress → Apply (Open → In Progress) | Поточний користувач є assignee; поточний status = Open | S-03 | Status змінюється на In Progress | US-05; US-07; transition BR |
+| T-15 | S-03 | Поточний assignee | Вибрати Resolved → Apply (In Progress → Resolved) | Поточний користувач є assignee; поточний status = In Progress | S-03 | Status змінюється на Resolved | US-05; US-07; transition BR |
+| T-16 | S-03 | Поточний assignee | Вибрати Closed → Apply (Resolved → Closed) | Поточний користувач є assignee; поточний status = Resolved | S-03 | Status змінюється на Closed | US-05; US-07; transition BR |
+| T-17 | S-03 | Поточний assignee | Вибрати In Progress → Apply (Resolved → In Progress) | Поточний користувач є assignee; поточний status = Resolved | S-03 | Issue повертається в роботу зі статусом In Progress | US-05; US-07; transition BR |
 | T-18 | S-03 | Не-assignee, включно з Team Lead | Спроба змінити status | Поточний користувач не є assignee | Перехід відсутній | Status залишається без змін | US-07; permission BR |
 | T-19 | S-03 | Поточний assignee | Спроба недозволеного переходу | Перехід не входить до дозволеної таблиці | Перехід відсутній | Status залишається без змін | US-07; transition BR |
 | T-20 | S-03 | Будь-який автентифікований учасник | Submit comment | Текст comment не порожній; збереження успішне | S-03 | Comment з'являється з автором і датою/часом | US-06 |
 | T-21 | S-03 | Будь-який автентифікований учасник | Submit comment | Збереження comment не вдалося | S-03 | Відображається помилка; comment не створюється | US-06; failed-save AC |
-| T-22 | S-03 | Будь-який автентифікований учасник | Повернення до списку | Issue було відкрито з S-02-A | S-02-A або S-02-C | Повернення до All; відображення актуального стану списку | US-02; навігаційне рішення потребує підтвердження |
-| T-23 | S-03 | Будь-який автентифікований учасник | Повернення до списку | Issue було відкрито з S-02-B | S-02-B або S-02-C | Повернення до Important; issue може більше не відповідати Important predicate | US-08; навігаційне рішення потребує підтвердження |
+| T-22 | S-03 | Будь-який автентифікований учасник | Повернення до списку | Issue було відкрито з S-02-A або створено через M-01, відкриту з All | S-02-A або S-02-C | Повернення до All; відображення актуального стану списку | US-02; APPROVED D-07 |
+| T-23 | S-03 | Будь-який автентифікований учасник | Повернення до списку | Issue було відкрито з S-02-B або створено через M-01, відкриту з Important | S-02-B або S-02-C | Повернення до Important; issue може більше не відповідати Important predicate | US-08; APPROVED D-07 |
 | T-24 | S-02-A | Team Member / Team Lead | Відкриття списку без issues | У наборі немає issues | S-02-C | Показується empty state для All | US-02 |
 | T-25 | S-02-B | Team Member / Team Lead | Відкриття Important без відповідних issues | Жоден issue не відповідає Important predicate | S-02-C | Показується empty state для Important | US-08 |
 
 **Примітка до T-11, T-13, T-18, T-19:** недозволена дія не є переходом. Вона не змінює дані issue і не відкриває новий екран.
 
-**Примітка до T-22 і T-23:** повернення має зберігати контекст списку, з якого користувач відкрив issue. Якщо після змін issue більше не відповідає фільтру Important, він не повинен залишатися у S-02-B лише через те, що користувач повернувся назад.
+**Примітка до T-22 і T-23 (APPROVED D-07/D-09):** повернення має зберігати контекст списку, з якого користувач відкрив issue або modal Create, після якого відкрився S-03 нового issue. Якщо після змін issue більше не відповідає фільтру Important, він не повинен залишатися у S-02-B лише через те, що користувач повернувся назад.
 
 ---
 
@@ -518,8 +518,8 @@ Frames F-07–F-11 не є новими продуктовими сторінк�
 | Q-ID | Питання | Чому важливо |
 |---|---|---|
 | Q-01 | Який саме механізм автентифікації використовується? | S-01 залишається placeholder, доки рішення не визначено. |
-| Q-02 | Який початковий стан assignee для нового issue? | Впливає на відображення assignee і можливість змінювати status. |
-| Q-03 | Чи дозволене повторне призначення issue іншому assignee? | Впливає на Assignment control у S-03. |
+| Q-02 | **ВИРІШЕНО D-04:** початковий assignee = Unassigned | За відсутності assignee status не можна змінити. |
+| Q-03 | **ВИРІШЕНО D-04:** Team Lead може перепризначати assignee | Відповідає єдиному поточному assignee. |
 | Q-04 | Як технічно представляється Not Set? | Впливає на відображення початкового priority. |
 | Q-05 | Який точний текст помилки при невдалому збереженні comment? | Впливає на F-11. |
 | Q-06 | Який формат дати/часу та timezone використовуються? | Впливає на відображення comments і created_at. |
@@ -528,7 +528,7 @@ Frames F-07–F-11 не є новими продуктовими сторінк�
 | Q-09 | Які частота та строк зберігання резервних копій? | Не визначає UI, але потребує уточнення для повної специфікації. |
 | Q-10 | Які імена трьох predefined users? | Потрібні для узгоджених демонстраційних даних. |
 | Q-11 | **ВИРІШЕНО D-09:** успішний Create → S-03 з деталями новоствореного issue | Погоджене UX-рішення 2026-11-08; S1 не задає ціль post-submit. |
-| Q-12 | Чи підтверджено повернення з S-03 до попереднього list state? | Визначає, чи потрібно зберігати All/Important як navigation context. |
+| Q-12 | **ВИРІШЕНО D-07:** повернення до попередньої вкладки | All / Important з актуальним предикатом. |
 
 Q-11 вирішено погодженим D-09, Q-12 (повернення до попередньої вкладки) — D-07. Ці рішення не є вимогами SOURCE S1.
 
@@ -587,7 +587,7 @@ Screen Map описує структуру екранів і маршрути, �
 | Зміна priority не веде на вигадану сторінку налаштувань | S-03 Priority; T-12 залишається в S-03 | **ПРОЙДЕНО** |
 | Important — той самий набір даних, а не незалежний список | S-02-A / S-02-B; спільні ID; predicate `(High OR Critical) AND status != Closed` | **ПРОЙДЕНО** |
 | Cancel не створює issue | M-01; T-08; user flow 1 | **ПРОЙДЕНО** |
-| Повернення не «телепортує» на довільну сторінку | T-22 до попередньої вкладки All, T-23 до Important, S-02-C зберігає контекст фільтра | **ЛОГІКА ОПИСАНА; ПОГОДЖЕННЯ D-07 ОЧІКУЄТЬСЯ** |
+| Повернення не «телепортує» на довільну сторінку | T-22 до попередньої вкладки All, T-23 до Important, S-02-C зберігає контекст фільтра | **ЛОГІКА ОПИСАНА; D-07 APPROVED; НЕ ПРОТЕСТОВАНО** |
 | Заборонена дія не створює переходу | T-11, T-13, T-18, T-19 | **ПРОЙДЕНО** |
 | Тільки assignee змінює status, навіть якщо Team Lead не є assignee | S-03, T-14–19 | **ПРОЙДЕНО** |
 | Всі чотири status transitions; Closed без вихідних | S-03 Status, T-14–17 | **ПРОЙДЕНО** |
@@ -597,7 +597,7 @@ Screen Map описує структуру екранів і маршрути, �
 
 ### 11.1 Важливі розмежування
 
-- **Screen:** S-02, S-03; **службова межа / placeholder:** S-01 (без login UI); **стани одного screen:** S-02-A, S-02-B, S-02-C; **modal:** M-01; **component states:** помилка коментаря, валідатор Title/Description, недоступний control, успішне створення без визначеної навігації; **annotation:** таблиця дозволів/переходів і пояснення для Figma reviewer, не продуктова панель.
+- **Screen:** S-02, S-03; **службова межа / placeholder:** S-01 (без login UI); **стани одного screen:** S-02-A, S-02-B, S-02-C; **modal:** M-01; **component states:** помилка коментаря, валідатор Title/Description, недоступний control, успішне створення з переходом у S-03 нового issue (D-09); **annotation:** таблиця дозволів/переходів і пояснення для Figma reviewer, не продуктова панель.
 - D-01 (desktop grayscale low-fi, All/Important, Create modal) **APPROVED 2026-11-08**.
 - D-01–D-09 **APPROVED** як UX-рішення. T-22/T-23 спираються на D-07, T-09 — на D-09; жоден із цих маршрутів не є новою вимогою SOURCE S1.
 - При відкритті S-03 з Important після закриття issue повернення до Important повторно застосовує predicate: щойно Closed issue не відображається, а не залишається помилково у списку.
