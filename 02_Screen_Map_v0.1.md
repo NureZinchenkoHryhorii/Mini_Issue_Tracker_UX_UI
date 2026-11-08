@@ -1,8 +1,8 @@
 # 02_Screen_Map_v0.1 — Mini Issue Tracker
 
-**Status:** DRAFT — потребує перевірки та погодження  
-**Basis:** SD_Spec, фінальний Release Scope (§8), G1 Input Pack (DRAFT), інструкція G2.  
-**Decision Log:** затверджена версія не надана. Тому жодне нове навігаційне рішення нижче не вважається погодженим.
+**Статус:** ЧЕРНЕТКА — потребує перевірки та погодження  
+**Основа:** SD Spec, фінальний Release Scope (§8), перевірений Input Pack v1.0 (НЕ ЗАТВЕРДЖЕНО), інструкція G2.  
+**Журнал рішень:** D-01 погоджено 2026-11-08; D-02–D-08 очікують погодження. Рішення, що від них залежать, залишаються пропозиціями.
 
 ---
 
@@ -14,7 +14,7 @@ Mini Issue Tracker — внутрішній вебзастосунок для р
 
 ### 1.2. Актори
 
-| Actor | Доступні дії |
+| Актор | Доступні дії |
 |---|---|
 | Team Member | Створення issue, перегляд, коментарі. Зміна статусу лише для issue, де він є поточним assignee. |
 | Team Lead | Усі можливості Team Member; додатково призначення assignee та зміна priority. Зміна статусу — лише якщо Team Lead є поточним assignee. |
@@ -55,77 +55,77 @@ Assignment, Priority, Status та Comments — це функції та конт
 
 ---
 
-## 2. Screen / State Inventory
+## 2. Перелік екранів і станів
 
-### S-01 — Authentication boundary
+### S-01 — Межа автентифікації
 
-| Field | Description |
+| Поле | Опис |
 |---|---|
-| Screen/State ID | S-01 |
-| Name | Authentication boundary |
-| Purpose | Позначити межу доступу до системи: користуватися нею можуть лише автентифіковані учасники команди. |
-| Actors | Team Member, Team Lead |
-| Entry | Перехід до системи без підтвердженого автентифікованого контексту або початок демонстрації системи. |
-| Visible data | У межах цього артефакту конкретні дані не визначені. |
-| Inputs | Не визначені. |
-| Actions | Не визначені. |
-| Role/state conditions | Доступ до функцій системи дозволений лише автентифікованим учасникам команди. |
-| Errors/empty states | Не визначені. |
-| Exit | Перехід до S-02 після отримання автентифікованого контексту. |
-| Source/D-ID | SD_Spec §8 — authentication requirement; G2 instruction. D-ID: не присвоєно. |
+| ID екрана/стану | S-01 |
+| Назва | Authentication boundary |
+| Призначення | Позначити межу доступу до системи: користуватися нею можуть лише автентифіковані учасники команди. |
+| Актори | Team Member, Team Lead |
+| Умови входу | Перехід до системи без підтвердженого автентифікованого контексту або початок демонстрації системи. |
+| Видимі дані | У межах цього артефакту конкретні дані не визначені. |
+| Поля введення | Не визначені. |
+| Дії | Не визначені. |
+| Умови ролі/стану | Доступ до функцій системи дозволений лише автентифікованим учасникам команди. |
+| Помилки/порожні стани | Не визначені. |
+| Вихід | Перехід до S-02 після отримання автентифікованого контексту. |
+| Джерело/D-ID | SD_Spec §8 — authentication requirement; G2 instruction. D-ID: не присвоєно. |
 
 **Важливо:** S-01 — placeholder. Не створювати вигадану login-сторінку, форму входу, поля пароля, реєстрацію або конкретний механізм автентифікації.
 
-### S-02 — Issues List
+### S-02 — Список issues
 
-| Field | Description |
+| Поле | Опис |
 |---|---|
-| Screen/State ID | S-02 |
-| Name | Issues List |
-| Purpose | Переглядати issues та переходити до потрібного issue. |
-| Actors | Team Member, Team Lead |
-| Entry | Після S-01; повернення із S-03; відкриття списку після завершення створення issue. |
-| Visible data | ID, title, status, priority, assignee (якщо призначений). |
-| Inputs | Вибір режиму All або Important; вибір issue; запуск створення issue. |
-| Actions | Відкрити issue details; відкрити M-01; перемкнути All / Important. |
-| Role/state conditions | Обидва актори можуть переглядати список. |
-| Errors/empty states | Якщо немає issues для поточного режиму, відображається S-02-C. |
-| Exit | S-03 або M-01. |
-| Source/D-ID | US-02, US-08; BR щодо складу списку та Important predicate. G2 instruction. D-ID: не присвоєно. |
+| ID екрана/стану | S-02 |
+| Назва | Issues List |
+| Призначення | Переглядати issues та переходити до потрібного issue. |
+| Актори | Team Member, Team Lead |
+| Умови входу | Після S-01; повернення із S-03; відкриття списку після завершення створення issue. |
+| Видимі дані | ID, title, status, priority, assignee (якщо призначений). |
+| Поля введення | Вибір режиму All або Important; вибір issue; запуск створення issue. |
+| Дії | Відкрити issue details; відкрити M-01; перемкнути All / Important. |
+| Умови ролі/стану | Обидва актори можуть переглядати список. |
+| Помилки/порожні стани | Якщо немає issues для поточного режиму, відображається S-02-C. |
+| Вихід | S-03 або M-01. |
+| Джерело/D-ID | US-02, US-08; BR щодо складу списку та Important predicate. G2 instruction. D-ID: не присвоєно. |
 
 #### S-02-A — All
 
-| Field | Description |
+| Поле | Опис |
 |---|---|
-| Screen/State ID | S-02-A |
-| Name | All Issues |
-| Purpose | Показати всі доступні issues. |
-| Actors | Team Member, Team Lead |
-| Entry | Початковий стан списку; повернення до режиму All; перемикання з Important. |
-| Visible data | Для кожного issue: ID, title, status, priority, assignee, якщо призначений. |
-| Inputs | Вибір issue; перемикання на Important. |
-| Actions | Відкрити S-03; відкрити M-01. |
-| Role/state conditions | Однакові правила перегляду для обох ролей. |
-| Errors/empty states | Якщо список не містить issues — S-02-C. |
-| Exit | S-03, M-01 або S-02-B. |
-| Source/D-ID | US-02; BR щодо полів Issue List. D-ID: не присвоєно. |
+| ID екрана/стану | S-02-A |
+| Назва | All Issues |
+| Призначення | Показати всі доступні issues. |
+| Актори | Team Member, Team Lead |
+| Умови входу | Початковий стан списку; повернення до режиму All; перемикання з Important. |
+| Видимі дані | Для кожного issue: ID, title, status, priority, assignee, якщо призначений. |
+| Поля введення | Вибір issue; перемикання на Important. |
+| Дії | Відкрити S-03; відкрити M-01. |
+| Умови ролі/стану | Однакові правила перегляду для обох ролей. |
+| Помилки/порожні стани | Якщо список не містить issues — S-02-C. |
+| Вихід | S-03, M-01 або S-02-B. |
+| Джерело/D-ID | US-02; BR щодо полів Issue List. D-ID: не присвоєно. |
 
 #### S-02-B — Important
 
-| Field | Description |
+| Поле | Опис |
 |---|---|
-| Screen/State ID | S-02-B |
-| Name | Important Issues |
-| Purpose | Показати важливі незакриті issues. |
-| Actors | Team Member, Team Lead |
-| Entry | Перемикання з All у Important; повернення до раніше відкритого режиму Important. |
-| Visible data | Ті самі поля, що й у S-02-A, але лише для issues, які відповідають Important predicate. |
-| Inputs | Вибір issue; перемикання на All. |
-| Actions | Відкрити S-03; перемкнутися на S-02-A. |
-| Role/state conditions | Доступний обом ролям. |
-| Errors/empty states | Якщо жоден issue не відповідає умові Important — S-02-C у контексті Important. |
-| Exit | S-03 або S-02-A. |
-| Source/D-ID | US-08; BR Important Issues. D-ID: не присвоєно. |
+| ID екрана/стану | S-02-B |
+| Назва | Important Issues |
+| Призначення | Показати важливі незакриті issues. |
+| Актори | Team Member, Team Lead |
+| Умови входу | Перемикання з All у Important; повернення до раніше відкритого режиму Important. |
+| Видимі дані | Ті самі поля, що й у S-02-A, але лише для issues, які відповідають Important predicate. |
+| Поля введення | Вибір issue; перемикання на All. |
+| Дії | Відкрити S-03; перемкнутися на S-02-A. |
+| Умови ролі/стану | Доступний обом ролям. |
+| Помилки/порожні стани | Якщо жоден issue не відповідає умові Important — S-02-C у контексті Important. |
+| Вихід | S-03 або S-02-A. |
+| Джерело/D-ID | US-08; BR Important Issues. D-ID: не присвоєно. |
 
 **Important predicate:**
 
@@ -145,41 +145,41 @@ Important — це фільтр того самого набору issues, а н
 
 #### S-02-C — Empty
 
-| Field | Description |
+| Поле | Опис |
 |---|---|
-| Screen/State ID | S-02-C |
-| Name | Empty List State |
-| Purpose | Показати, що в поточному режимі немає issues для відображення. |
-| Actors | Team Member, Team Lead |
-| Entry | S-02-A, якщо немає жодного issue; S-02-B, якщо немає Important issues. |
-| Visible data | Порожній стан відповідного режиму. |
-| Inputs | Не визначені окремі поля введення. |
-| Actions | Перемикання режиму All / Important; створення issue — якщо доступна відповідна дія списку. |
-| Role/state conditions | Однакові правила для обох ролей. |
-| Errors/empty states | Це штатний empty state, а не помилка. |
-| Exit | S-02-A, S-02-B або M-01. |
-| Source/D-ID | US-02, US-08; G2 instruction. D-ID: не присвоєно. |
+| ID екрана/стану | S-02-C |
+| Назва | Empty List State |
+| Призначення | Показати, що в поточному режимі немає issues для відображення. |
+| Актори | Team Member, Team Lead |
+| Умови входу | S-02-A, якщо немає жодного issue; S-02-B, якщо немає Important issues. |
+| Видимі дані | Порожній стан відповідного режиму. |
+| Поля введення | Не визначені окремі поля введення. |
+| Дії | Перемикання режиму All / Important; створення issue — якщо доступна відповідна дія списку. |
+| Умови ролі/стану | Однакові правила для обох ролей. |
+| Помилки/порожні стани | Це штатний empty state, а не помилка. |
+| Вихід | S-02-A, S-02-B або M-01. |
+| Джерело/D-ID | US-02, US-08; G2 instruction. D-ID: не присвоєно. |
 
 S-02-C — стан S-02, а не окрема продуктова сторінка.
 
 ---
 
-### M-01 — Create Issue
+### M-01 — Створення issue
 
-| Field | Description |
+| Поле | Опис |
 |---|---|
-| Screen/State ID | M-01 |
-| Name | Create Issue Modal |
-| Purpose | Створити новий issue. |
-| Actors | Team Member, Team Lead |
-| Entry | Натискання дії створення issue у S-02. |
-| Visible data | Форма з Title та Description. |
-| Inputs | Title — обов'язкове; Description — обов'язкове. |
-| Actions | Submit / Create; Cancel. |
-| Role/state conditions | Будь-який автентифікований учасник може створювати issues. |
-| Errors/empty states | Не можна створити issue без обов'язкових Title та Description. Конкретні тексти помилок не визначені. |
-| Exit | Cancel повертає до попереднього стану S-02 без створення issue. У разі успіху issue створюється з початковими значеннями: Status = Open, Priority = Not Set. |
-| Source/D-ID | US-01; BR щодо створення та початкових значень. D-ID: не присвоєно. |
+| ID екрана/стану | M-01 |
+| Назва | Create Issue Modal |
+| Призначення | Створити новий issue. |
+| Актори | Team Member, Team Lead |
+| Умови входу | Натискання дії створення issue у S-02. |
+| Видимі дані | Форма з Title та Description. |
+| Поля введення | Title — обов'язкове; Description — обов'язкове. |
+| Дії | Submit / Create; Cancel. |
+| Умови ролі/стану | Будь-який автентифікований учасник може створювати issues. |
+| Помилки/порожні стани | Не можна створити issue без обов'язкових Title та Description. Конкретні тексти помилок не визначені. |
+| Вихід | Cancel повертає до попереднього стану S-02 без створення issue. У разі успіху issue створюється з початковими значеннями: Status = Open, Priority = Not Set. |
+| Джерело/D-ID | US-01; BR щодо створення та початкових значень. D-ID: не присвоєно. |
 
 **Правила створення:**
 
@@ -193,22 +193,22 @@ S-02-C — стан S-02, а не окрема продуктова сторін
 
 ---
 
-### S-03 — Issue Details
+### S-03 — Деталі issue
 
-| Field | Description |
+| Поле | Опис |
 |---|---|
-| Screen/State ID | S-03 |
-| Name | Issue Details |
-| Purpose | Переглядати issue та виконувати дозволені дії з ним на одному екрані. |
-| Actors | Team Member, Team Lead |
-| Entry | Вибір issue у S-02-A або S-02-B. |
-| Visible data | ID, title, description, status, priority, assignee (якщо призначений), author, created_at; коментарі з автором і датою/часом. |
-| Inputs | Поля для дозволеного редагування assignee та priority; поле введення comment. |
-| Actions | Перегляд; призначення assignee; зміна priority; зміна status; додавання comment; повернення до списку. |
-| Role/state conditions | Assignment і Priority — лише Team Lead. Status — лише поточний assignee. Comment — будь-який автентифікований учасник. |
-| Errors/empty states | Невдале збереження comment показує помилку; comment не створюється. Недозволені дії не виконуються. |
-| Exit | Повернення до попереднього list state — S-02-A або S-02-B, з якого було відкрито issue. |
-| Source/D-ID | US-02–US-07; відповідні BR щодо ролей, статусів, коментарів та переходів. D-ID: не присвоєно. |
+| ID екрана/стану | S-03 |
+| Назва | Issue Details |
+| Призначення | Переглядати issue та виконувати дозволені дії з ним на одному екрані. |
+| Актори | Team Member, Team Lead |
+| Умови входу | Вибір issue у S-02-A або S-02-B. |
+| Видимі дані | ID, title, description, status, priority, assignee (якщо призначений), author, created_at; коментарі з автором і датою/часом. |
+| Поля введення | Поля для дозволеного редагування assignee та priority; поле введення comment. |
+| Дії | Перегляд; призначення assignee; зміна priority; зміна status; додавання comment; повернення до списку. |
+| Умови ролі/стану | Assignment і Priority — лише Team Lead. Status — лише поточний assignee. Comment — будь-який автентифікований учасник. |
+| Помилки/порожні стани | Невдале збереження comment показує помилку; comment не створюється. Недозволені дії не виконуються. |
+| Вихід | Повернення до попереднього list state — S-02-A або S-02-B, з якого було відкрито issue. |
+| Джерело/D-ID | US-02–US-07; відповідні BR щодо ролей, статусів, коментарів та переходів. D-ID: не присвоєно. |
 
 #### Розміщення функцій усередині S-03
 
@@ -309,9 +309,9 @@ Source: US-06; BR щодо comments.
 
 ---
 
-## 4. User flows
+## 4. Сценарії користувача
 
-### Flow 1 — Створення issue
+### Сценарій 1 — Створення issue
 
 `S-01 → S-02-A → M-01 → Submit → unresolved destination`
 
@@ -331,7 +331,7 @@ Source: US-06; BR щодо comments.
 
 Issue не створюється.
 
-### Flow 2 — Перегляд issue
+### Сценарій 2 — Перегляд issue
 
 `S-01 → S-02-A → S-03 → S-02-A`
 
@@ -342,7 +342,7 @@ Issue не створюється.
 3. Переглядає деталі, статус, пріоритет, assignee, автора, дату створення та коментарі.
 4. Повертається до All Issues.
 
-### Flow 3 — Призначення issue Team Lead
+### Сценарій 3 — Призначення issue Team Lead
 
 `S-02-A → S-03 → Assignment action → S-03`
 
@@ -354,7 +354,7 @@ Issue не створюється.
 
 Team Member не може виконати цю зміну. Окремий екран Assignment не відкривається.
 
-### Flow 4 — Зміна priority Team Lead
+### Сценарій 4 — Зміна priority Team Lead
 
 `S-02-A → S-03 → Priority action → S-03`
 
@@ -366,7 +366,7 @@ Team Member не може виконати цю зміну. Окремий ек�
 
 Team Member не може змінювати priority. Окремий екран Priority не відкривається.
 
-### Flow 5 — Дозволені зміни status
+### Сценарій 5 — Дозволені зміни status
 
 `S-02-A → S-03 → Status action → S-03`
 
@@ -378,7 +378,7 @@ Team Member не може змінювати priority. Окремий екран
 
 У кожному випадку дія дозволена лише поточному assignee.
 
-### Flow 6 — Повернення Resolved issue у роботу
+### Сценарій 6 — Повернення Resolved issue у роботу
 
 `S-02-A → S-03 → Resolved → In Progress → S-03`
 
@@ -390,7 +390,7 @@ Team Member не може змінювати priority. Окремий екран
 
 Це дозволений виняток із послідовного руху до Closed. Resolved не прирівнюється до Closed.
 
-### Flow 7 — Успішне додавання comment
+### Сценарій 7 — Успішне додавання comment
 
 `S-02-A → S-03 → Enter comment → Submit → S-03`
 
@@ -400,7 +400,7 @@ Team Member не може змінювати priority. Окремий екран
 2. Надсилає його.
 3. Після успішного збереження comment відображається з автором і датою/часом.
 
-### Flow 8 — Помилка збереження comment
+### Сценарій 8 — Помилка збереження comment
 
 `S-02-A → S-03 → Enter comment → Submit → Error state on S-03`
 
@@ -413,7 +413,7 @@ Team Member не може змінювати priority. Окремий екран
 
 Не можна демонструвати помилку так, ніби comment уже успішно доданий.
 
-### Flow 9 — Перегляд Important Issues
+### Сценарій 9 — Перегляд Important Issues
 
 `S-02-A → S-02-B → S-03 → S-02-B`
 
@@ -424,7 +424,7 @@ Team Member не може змінювати priority. Окремий екран
 3. Користувач може відкрити issue.
 4. Повернення відбувається до Important, а не до довільного списку.
 
-### Flow 10 — Заборонена дія
+### Сценарій 10 — Заборонена дія
 
 Приклад: Team Member намагається змінити priority.
 
@@ -438,7 +438,7 @@ Team Member не може змінювати priority. Окремий екран
 
 Інший приклад: Team Lead не є assignee, але намагається змінити status. Дія також заборонена.
 
-### Flow 11 — Порожній список
+### Сценарій 11 — Порожній список
 
 All:
 
@@ -457,7 +457,7 @@ Important:
 
 ---
 
-## 5. Figma Frames для демонстрації
+## 5. Кадри Figma для демонстрації
 
 Кількість продуктових екранів не дорівнює кількості Figma frames. Один screen може мати декілька frames для демонстрації різних станів і ролей.
 
@@ -496,7 +496,7 @@ Frames F-07–F-11 не є новими продуктовими сторінк�
 
 ---
 
-## 7. Мінімальний Screen Inventory
+## 7. Мінімальний перелік екранів
 
 | ID | Назва | Тип | Основне призначення |
 |---|---|---|---|
@@ -512,7 +512,7 @@ Frames F-07–F-11 не є новими продуктовими сторінк�
 
 ---
 
-## 8. Unresolved decisions / питання для Decision Log
+## 8. Невирішені рішення та питання для журналу
 
 | Q-ID | Питання | Чому важливо |
 |---|---|---|
@@ -551,7 +551,7 @@ Screen Map описує структуру екранів і маршрути, �
 
 ---
 
-## 10. Source Check
+## 10. Перевірка джерела
 
 | Requirement group | Screen Map coverage |
 |---|---|
