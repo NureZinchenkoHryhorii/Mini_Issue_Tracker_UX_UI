@@ -1,52 +1,48 @@
-# Mini Issue Tracker — UX/UI Decision Log
+# Mini Issue Tracker — Журнал UX/UI-рішень
 
-**File:** `Decision_Log_v0.1.md`  
-**Version:** v0.1  
-**Status:** IN PROGRESS — D-01 approved by project developer; D-02–D-08 pending  
-**Date initialized:** 2026-11-08  
-**Inputs:** S1 `SD_Spec.docx.pdf`; Methodological Guide §6; `01_Input_Pack_v1.0.md`.
+**Файл:** `Decision_Log_v0.1.md`  
+**Версія:** v0.1  
+**Статус:** У ПРОЦЕСІ — погоджено D-01; D-02–D-08 ще не погоджені  
+**Дата створення:** 2026-11-08  
+**Джерела:** `SD_Spec.docx.pdf` (S1); Методичні рекомендації §6; `01_Input_Pack_v1.0.md`.
 
-## Decision candidates
+## 1. Запропоновані та погоджені рішення
 
-| D-ID | Proposed decision | Source | Status | Approved by | Approval date |
+| D-ID | Текст рішення | Джерело | Статус | Хто погодив | Дата |
 |---|---|---|---|---|---|
-| D-01 | Desktop grayscale low-fi; one Issues List with All / Important tabs; Create modal | Guide §6 | APPROVED | Project developer (user confirmation in ChatGPT) | 2026-11-08 |
-| D-02 | S-01 is an authentication boundary placeholder; demo begins in authenticated S-02; do not invent login/SSO | Guide §6 | PROPOSED — NOT APPROVED | — | — |
-| D-03 | Show unset priority as Not Set; only Low/Normal/High/Critical selectable; no reset action | Guide §6 | PROPOSED — NOT APPROVED | — | — |
-| D-04 | New issue is unassigned; Team Lead may reassign | Guide §6; S1 gap | PROPOSED — NOT APPROVED; explicit decision needed | — | — |
-| D-05 | Display role-dependent forbidden controls disabled (not hidden) | Guide §6 | PROPOSED — NOT APPROVED | — | — |
-| D-06 | Assignee/priority/status use choice + local Apply; successful update remains in S-03 | Guide §6 | PROPOSED — NOT APPROVED | — | — |
-| D-07 | Back from details preserves previous All / Important list tab | Guide §6 | PROPOSED — NOT APPROVED | — | — |
-| D-08 | Fictional data and predefined prototype outcomes; no actual login/database | Guide §6 | PROPOSED — NOT APPROVED | — | — |
+| D-01 | Desktop grayscale low-fi; один список Issues List із вкладками All / Important; Create у modal | Методичка §6 | **APPROVED — ПОГОДЖЕНО** | Розробник проєкту (підтвердження користувача в ChatGPT) | 2026-11-08 |
+| D-02 | S-01 — лише authentication boundary; демонстрація починається зі вже автентифікованого S-02; login/SSO не вигадувати | Методичка §6 | PROPOSED — НЕ ПОГОДЖЕНО | — | — |
+| D-03 | Показувати відсутній priority як Not Set; вибирати лише Low/Normal/High/Critical; reset не додавати | Методичка §6 | PROPOSED — НЕ ПОГОДЖЕНО | — | — |
+| D-04 | Новий issue не має assignee; Team Lead може перепризначати | Методичка §6, прогалина S1 | PROPOSED — НЕ ПОГОДЖЕНО | — | — |
+| D-05 | Заборонені для ролі controls показувати disabled, а не приховувати | Методичка §6 | PROPOSED — НЕ ПОГОДЖЕНО | — | — |
+| D-06 | Для assignee/priority/status: вибір + локальна кнопка Apply; успіх залишає S-03 | Методичка §6 | PROPOSED — НЕ ПОГОДЖЕНО | — | — |
+| D-07 | Повернення з деталей зберігає попередню вкладку All / Important | Методичка §6 | PROPOSED — НЕ ПОГОДЖЕНО | — | — |
+| D-08 | Використовувати умовні дані й наперед визначені результати прототипу без реальних login/БД | Методичка §6 | PROPOSED — НЕ ПОГОДЖЕНО | — | — |
 
-These entries are **not** S1 requirements. A student/teacher/reviewer must explicitly agree or reject each relevant design choice. Record the actual actor and date; never invent a sign-off.
+Ці UX-рішення не є вимогами S1. Чернетка макета та пропозиція AI не підтверджують APPROVED.
 
-## Extra unresolved questions
+## 2. Невирішені питання
 
-| Q-ID | Open question | Needed before |
+| Q-ID | Питання | Потрібно для |
 |---|---|---|
-| Q-01 | What login/authentication mechanism, if any, will be modeled beyond the boundary? | Detailed authentication design (not required for S-01 placeholder) |
-| Q-02 | Is a new issue initially unassigned? | G2/G3 assignee states; see D-04 |
-| Q-03 | Can the Team Lead reassign? | G2/G3 assignment behavior; see D-04 |
-| Q-04 | How is Not Set stored technically? | Implementation, not wireframe |
-| Q-05 | Exact comment-save-error wording/presentation? | Screen Contracts / Figma |
-| Q-06 | Date-time display format and timezone? | Screen Contracts / Figma |
-| Q-07 | Confirm user-facing name for Important Open Issues; rule remains non-Closed | Screen Contracts / Figma |
-| Q-08 | Performance response-time measurement scope? | Implementation tests |
-| Q-09 | Backup retention, frequency, restore method? | Implementation |
-| Q-10 | Fictional predefined user names? | Demo test data; see D-08 |
-| Q-11 | After successful issue creation, stay on list or open created issue details? | Final G2 transition table |
+| Q-01 | Який механізм автентифікації? | Детальніша реалізація; не для S-01 placeholder |
+| Q-02 | Чи відсутній assignee після створення? | D-04, G2/G3 |
+| Q-03 | Чи можна перепризначати assignee? | D-04, G2/G3 |
+| Q-04 | Як зберігати Not Set у БД? | Реалізація |
+| Q-05 | Текст і вигляд помилки comment save? | Screen Contracts / Figma |
+| Q-06 | Формат дати, часу, timezone? | Screen Contracts / Figma |
+| Q-07 | Назва Important Open Issues, не змінюючи фільтр status != Closed? | UI-тексти |
+| Q-08 | Як вимірювати response time < 1 s? | Тести реалізації |
+| Q-09 | Частота, зберігання, відновлення backup? | Реалізація |
+| Q-10 | Навчальні імена трьох користувачів? | Демонстрація |
+| Q-11 | Після Create показати список чи деталі? | G2 |
+ 
+## 3. Історія погодження
 
-## Approval record template
-
-| Date | Reviewer/decision maker | D-ID | Final decision | Status (APPROVED / REJECTED / DEFERRED) | Reason / source impact |
+| Дата | Хто погодив | D-ID | Рішення | Статус | Підстава |
 |---|---|---|---|---|---|
-| 2026-11-08 | Project developer (user confirmation in ChatGPT) | D-01 | Desktop grayscale low-fidelity; one Issues List with All / Important tabs; Create modal | APPROVED | Confirmed explicitly in project conversation; methodology §6 UX choice, not S1 requirement |
+| 2026-11-08 | Розробник проєкту (явне повідомлення в ChatGPT) | D-01 | Desktop grayscale low-fi, один All/Important list, Create modal | APPROVED | Методичка §6 та явне підтвердження |
 
-## Rules for using this log
+## 4. Правила журналу
 
-- Enter **APPROVED** only after an actual human decision with name and date.
-- Do not override S1 acceptance criteria or business rules with UX choices.
-- If a decision changes, preserve the original entry in history rather than disguising it as an S1 requirement.
-- Copy only APPROVED D-IDs to `01_Input_Pack_v1.0.md` §8.2.
-- Until approvals are recorded, do not present `02_Screen_Map_v0.1.md` as an agreed plan.
+APPROVED ставити тільки після фактичного погодження людиною, фіксуючи дату й особу. Не підміняти вимоги S1 UX-рішеннями. У разі зміни зберігати попередній запис в історії. До Input Pack переносити лише APPROVED D-ID. Поки D-02–D-08 не погоджені, `02_Screen_Map_v0.1.md` є попереднім планом.
