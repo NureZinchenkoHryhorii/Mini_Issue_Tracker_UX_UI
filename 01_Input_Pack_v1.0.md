@@ -533,7 +533,9 @@ The following are important SOURCE/DERIVED constraints, **not** optional design 
 
 ### 8.2. APPROVED design decisions (D)
 
-**No design decisions are currently recorded as APPROVED.**
+**D-01 — APPROVED (2026-11-08; project developer, explicit user confirmation in ChatGPT):** Desktop grayscale low-fidelity design; one Issues List with All / Important tabs; Create Issue is a modal. Source: Methodological Guide §6, D-01. This is an approved UX decision, **not** a SOURCE/S1 requirement.
+
+**D-02–D-08:** remain UNRESOLVED, awaiting human approval. Do not treat draft screen-map decisions as approved.
 
 An AI-generated suggestion or a draft Screen Map is not human authorization. When a student/reviewer explicitly approves a decision, record its D-ID, exact text, approving person, date and scope in `Decision_Log_v0.1.md`, then copy that decision here without altering SOURCE requirements. Until then, keep it UNRESOLVED.
 
@@ -541,7 +543,7 @@ An AI-generated suggestion or a draft Screen Map is not human authorization. Whe
 
 | D-ID | Proposed decision | Current status | Source |
 |---|---|---|---|
-| D-01 | Desktop grayscale low-fidelity; one list with All / Important tabs; Create in a modal | UNRESOLVED — approval needed | Methodological Guide §6 |
+| D-01 | Desktop grayscale low-fidelity; one list with All / Important tabs; Create in a modal | APPROVED — 2026-11-08; project developer confirmation | Methodological Guide §6 |
 | D-02 | S-01 represents authentication boundary only; demo starts from already authenticated S-02; no invented login method | UNRESOLVED — approval needed | Methodological Guide §6 |
 | D-03 | Display unset priority as Not Set; only Low/Normal/High/Critical can be selected; do not add reset | UNRESOLVED — approval needed | Methodological Guide §6 |
 | D-04 | A new issue starts unassigned; Team Lead may reassign an issue | UNRESOLVED — explicit confirmation needed because S1 does not fully specify this | Methodological Guide §6 |
@@ -672,7 +674,7 @@ Exact authentication method, visual error messages (apart from the source Gherki
 - **Control B (later stage):** another student or teacher should review requirements matrices and boundary cases, and record reviewer, date, version, accepted decisions and open blockers. Follow Methodological Guide §11.
 - **Reviewer:** PENDING
 - **Date of human review:** PENDING
-- **Accepted D-ID:** none documented
-- **Open blockers:** D-01–D-08 approvals; Q-02/Q-03 if D-04 is not approved; Q-11 navigation choice.
+- **Accepted D-ID:** D-01 (2026-11-08; project developer confirmation)
+- **Open blockers:** D-02–D-08 approvals; Q-02/Q-03 if D-04 is not approved; Q-11 navigation choice.
 - **Approval status:** **NOT APPROVED**. Do not claim Control B was performed.
 
