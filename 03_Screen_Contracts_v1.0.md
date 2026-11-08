@@ -144,7 +144,7 @@
 | Атрибут | Контракт |
 |---|---|
 | ID / призначення | S-03; перегляд одного issue, коментарі та всі дозволені дії керування без нових сторінок |
-| Actors / entry | Обидві ролі після auth; T-04 (з All), T-05 (з Important) |
+| Actors / entry | Обидві ролі після auth; T-04 (з All), T-05 (з Important), **T-09 після успішного Create — саме новостворений issue** |
 | Visible data | ID, Title, Description, Status, Priority, Author, Created at — потрібні; Assignee якщо призначений; Comments: body + author + creation date/time на кожному записі |
 | Відсутні значення | Priority unset = Not Set (семантика SOURCE, текст APPROVED D-03); Assignee Unassigned не підмінювати людиною (APPROVED D-04); comments можуть бути порожнім набором, точний напис не задано; створений issue не має бути без ID/Author/Created at |
 | Default | Read-only details для всіх; control permission залежить від глобальної ролі та поточного assignee, а не тільки Team Lead |
@@ -201,9 +201,9 @@
 | T-06 / T-07 | S-02-A/B → M-01 | Лише auth user; відкрити modal |
 | T-08 | M-01 → вкладка, звідки відкрили | Cancel не створює issue |
 | T-09 | M-01 → S-03 нового issue (APPROVED D-09) | Лише успішний Create; S-03 показує саме новий ID, author/created_at, Open, Not Set; невдала валідація не запускає T-09 |
-| T-10 / T-11 | S-03 → S-03 / без зміни | Lead призначає одного team member; Member не може |
-| T-12 / T-13 | S-03 → S-03 / без зміни | Lead змінює priority; Member не може; немає settings page |
-| T-14–T-17 | S-03 → S-03 | 4 валідні зміни статусу, тільки assignee |
+| T-10 / T-11 | S-03 → S-03 / без зміни | Lead вибирає одного team member → Apply; Member не може |
+| T-12 / T-13 | S-03 → S-03 / без зміни | Lead вибирає рівень → Apply; Member не може; немає settings page |
+| T-14–T-17 | S-03 → S-03 | Вибір next status → Apply; 4 валідні зміни, тільки assignee |
 | T-18 / T-19 | S-03 → без переходу | Не-assignee або недопустимий status transition — жодної зміни |
 | T-20 / T-21 | S-03 → S-03 | Comment success з author/time або failed save без запису |
 | T-22 / T-23 | S-03 → All/Important | Збереження попередньої вкладки — APPROVED D-07; фільтр повторно застосовується |
@@ -301,12 +301,12 @@
 | TEST-02.3 | Auth Member | Є видимий issue | Вибрати рядок | Відкриваються деталі саме вибраного issue | Роботу маршрутизації застосунку |
 | TEST-02.4 | Auth Member | Відкритий issue | Переглянути поля | ID/Title/Description/Status/Priority/Assignee за наявності/Author/Created at | Завантаження фактичних записів |
 | TEST-02.5 | Auth Member | Зареєстрованих issues 0 | Відкрити All | Порожній список / повідомлення | Чи дійсно набір порожній |
-| TEST-03.1 | Lead | Відкритий issue | Вибрати assignee | Обирається лише одна особа | Constraint cardinality у БД |
+| TEST-03.1 | Lead | Відкритий issue; доступний C-11 | Вибрати одного team member → C-17 Apply | Зберігається лише один assignee, він показаний у S-03 | Constraint cardinality у БД |
 | TEST-03.2 | Lead | Є predefined team members | Відкрити варіанти | Обрати можна тільки члена команди | Перевірку membership на сервері |
-| TEST-03.3 | Member + Lead | Один і той самий issue | Спробувати assign обома ролями | Member не змінює assignee; Lead може | Server authorization |
+| TEST-03.3 | Member + Lead | Один і той самий issue | Member бачить disabled C-11/Apply; Lead вибирає assignee → Apply | Member не змінює assignee; Lead після success змінює | Server authorization |
 | TEST-03.4 | Auth Member | Issue має assignee | Переглянути поточного | Поточний assignee видимий | Актуальне збережене значення |
 | TEST-04.1 | Lead | Контрол priority доступний | Відкрити вибір | Тільки Low, Normal, High, Critical; Not Set — відсутнє значення | Серверне обмеження enum |
-| TEST-04.2 | Member + Lead | Той самий issue | Спробувати change priority | Member не змінює; Lead може | Server authorization |
+| TEST-04.2 | Member + Lead | Той самий issue | Member бачить disabled C-12/Apply; Lead вибирає допустимий priority → Apply | Member не змінює; Lead після success змінює | Server authorization |
 | TEST-05.1 | Auth Member | Набір issues | Оглянути status кожного | Кожен issue показує поточний status | Чи status актуальний |
 | TEST-05.2 | Auth Member | Issue відкритий | Переглянути S-03 | Поточний status видимий | Чи відповідає БД |
 | TEST-05.3 | Auth Member | Є рядки issue | Оглянути список | Status видно в кожному рядку | Чи відповідає БД |
@@ -317,7 +317,7 @@
 | TEST-06.5 | Auth Member | Непорожній comment; симульована помилка save | Submit | Показано error, новий comment відсутній | Транзакційність і реальний failure handling |
 | TEST-07.1 | Auth Member | Створюється issue | Create | Початковий status Open | Початкове значення в БД |
 | TEST-07.2 | Assignee | Відомі чотири статуси | Оглянути значення | Лише Open/In Progress/Resolved/Closed | Серверне обмеження значень |
-| TEST-07.3 | Assignee | Валідний status transition | Змінити, повторно відкрити | Наступний перегляд показує новий status | Persistence і узгодженість між запитами |
+| TEST-07.3 | Поточний assignee | Валідний status transition, не Closed | Вибрати дозволений next status → C-17 Apply → повторно відкрити issue | S-03 одразу і при наступному перегляді показує новий status | Persistence і узгодженість між запитами |
 | TEST-07.4 | Не-assignee, зокрема Lead | Issue має іншого assignee | Спробувати status change | Status не змінюється | Server authorization |
 | TEST-07.5 | Assignee | Вибір status | Спробувати невалідний status | Не приймається значення поза чотирма | Server input validation |
 | TEST-08.1 | Auth Member | Є High/Resolved | Відкрити Important | High/Resolved включено | Правильність server predicate |
@@ -338,7 +338,7 @@
 | TEST-X07 | Auth Member | S-03 відкрито з Important; issue потім стає Closed законним шляхом | Повернутися (T-23) | APPROVED D-07: повернення до Important; Closed issue більше не відображається | Реальна навігація й server recomputation |
 | TEST-X08 | Auth Member | У списку All нуль issues | Відкрити S-02-A | S-02-C у контексті All, а не error | Що фактичний storage порожній |
 | TEST-X09 | Auth Member | У загальному списку є тільки Low/Normal/Not Set або Closed | Відкрити Important | S-02-C у контексті Important | Правильність backend filtering |
-| TEST-X10 | Team Lead | S-03, priority Not Set | Вибрати High | Після успіху High відображається в S-03; жодного «Priority Settings» screen | Persistence; локальний Apply — APPROVED D-06, у тесті треба натиснути |
+| TEST-X10 | Team Lead | S-03, priority Not Set | Вибрати High → локальний C-17 Apply | Після успіху High відображається в S-03; жодного «Priority Settings» screen | Persistence; локальний Apply — APPROVED D-06, у тесті треба натиснути |
 | TEST-X11 | Auth Member | M-01 з Title/Description | Submit, успішне створення | S-03 показує **саме новостворений issue** з Open/Not Set, ID/author/time (APPROVED D-09) | Реальне збереження, ID consistency і фактичний перехід застосунку без integration test |
 | TEST-X12 | Auth Member | S-03, коментар непорожній | Імітувати помилку збереження | Error; новий comment не з'являється, author/time для нього не вигадуються | Server transaction rollback |
 
@@ -361,7 +361,7 @@
 | Q-09 | Backup frequency/retention/restore | Розробник/викладач | NFR-04, не UI |
 | Q-10 | Умовні імена трьох користувачів | Розробник/викладач | Приклади даних, не нові user roles |
 
-**Погоджено тільки D-01 (2026-11-08).** Усі інші рішення з таблиці — ще не затверджені. Якщо певне рішення є критичним для сценарію, не демонструвати його як SOURCE: зупинити відповідну гілку й зафіксувати blocker.
+**Стан погодження:** D-01–D-09 **APPROVED (2026-11-08)**, у тому числі Q-11 вирішено D-09. PROPOSED D-10 ще не погоджено: конкретні довільні UI-тексти й формати не можна видавати за SOURCE або автоматично затверджені. Контроль B не проведений.
 
 ## 9. Результати підготовки й межі перевірки
 
