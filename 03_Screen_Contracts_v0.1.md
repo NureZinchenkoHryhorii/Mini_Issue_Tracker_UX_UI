@@ -9,12 +9,12 @@
 ## 0. Статуси доказів і UX-рішень
 
 - `SOURCE` = оригінальні правила S1; `DERIVED` = логічний висновок, обґрунтований S1; `APPROVED D-01` = підтверджений 2026-11-08 вибір desktop grayscale low-fi, один список All/Important та Create modal.
-- `PROPOSED D-02`…`D-08` = пропозиції методички, **не погоджені**. `PROPOSED D-09` = потрібне рішення про маршрут після Create (Q-11). `PROPOSED D-10` = потрібне рішення про спосіб зворотного зв'язку/представлення валідації, де точний текст не заданий. Нові D-ID тут є **локальними пропозиціями**, їх не видавати за вже внесені APPROVED до журналу.
+- `APPROVED D-01`…`D-08` = погоджені UX-рішення з методички; `APPROVED D-09` = окремо погоджений маршрут Q-11: успішний Create → S-03 саме новоствореного issue (2026-11-08). Це **UX-рішення, не SOURCE S1**. `PROPOSED D-10` = ще не погоджене уточнення способу зворотного зв'язку/валідації там, де S1 не встановлює точний текст.
 - `M` = перевіряється статичним макетом (наявність, вигляд, приклади станів). `P` = перевіряється клікабельним прототипом/сценарієм (симуляція послідовності). `I` = доводиться тільки реалізацією/інтеграційними перевірками (права на сервері, створення й збереження в БД, timestamps, захист, HTTPS, backup, performance).
 - `НЕ ВИКОНАНО` = тест специфіковано, але результат невідомий; не підмінювати це `PASS`.
 - Assignee — зв'язок **поточного користувача з конкретним issue**, а не глобальна роль. Відсутність assignee не надає права змінювати status жодному користувачу.
 - `S-01` — placeholder межі автентифікації, `S-02` — один екран списку (All/Important/Empty — стани), `M-01` — modal, `S-03` — один екран деталей. Assignment/Priority/Status/Comments — області S-03, не окремі screens.
-- Точні наслідки `D-04` (початковий assignee, перепризначення), `D-06` (Apply), `D-07` (повернення), `D-08` (fake data/demo) ще не затверджені. Нижче контракт явно відділяє незмінні правила SOURCE від цих UX-варіантів.
+- `D-04` (Unassigned та перепризначення), `D-06` (окрема Apply), `D-07` (повернення до попередньої вкладки), `D-08` (демодані), `D-09` (після Create → S-03) **погоджені**. Зміст SOURCE від цього не змінюється.
 
 ## 1. Загальні правила даних і подання
 
@@ -128,14 +128,14 @@
 | Default | Порожні Title/Description; немає UI-контролів для вибору status/priority/assignee під час Create |
 | Empty / validation | Title порожній → `Title is required` (Gherkin S1); Description порожній → validation без створення; точний текст не задано |
 | Error | Текст системної помилки Create у S1 не встановлено; за фактичного невдалого збереження не оголошувати створення успішним (поведінка поза конкретним AC, перевіряти реалізацією) |
-| Incoming / outgoing | T-06/T-07 → M-01; T-08 Cancel → попередня вкладка без нового issue; T-09 success → результат створення, **подальший маршрут Q-11 UNRESOLVED** |
-| Перевірка | M: тільки 2 поля, валідаційні приклади, Cancel; P: Cancel/required/імітація success, але без однозначного destination; I: ID/author/time, atomic creation, відсутність запису після Cancel/validation |
+| Incoming / outgoing | T-06/T-07 → M-01; T-08 Cancel → попередня вкладка без нового issue; T-09 лише при успішному Create → **S-03 саме новоствореного issue** (APPROVED D-09) |
+| Перевірка | M: тільки 2 поля, валідаційні приклади, Cancel, стан S-03 нового issue; P: Cancel/required/симуляція T-09 → S-03 з тим самим створеним ID; I: реальне створення, ID/author/time, atomicity та відсутність запису після Cancel/validation |
 
 | C-ID | Label / type | Visible / enabled | Trigger → результат | Джерело |
 |---|---|---|---|---|
 | C-06 | Title / single-line text input | Видимий усім auth; required | Введення Title | AC-01.1/01.2 |
 | C-07 | Description / multiline text input | Видимий усім auth; required | Введення Description | AC-01.1/01.3 |
-| C-08 | Create / submit button | Видимий усім auth; форма може бути submitted, але валідатор не пропускає відсутні required | T-09 лише при валідних даних і успішному збереженні; статус Open, priority unset | BR-02/03/04; AC-01.1–01.5; Q-11 |
+| C-08 | Create / submit button | Видимий усім auth; форма може бути submitted, але валідатор не пропускає відсутні required | T-09: лише після успішного створення → S-03 нового issue; статус Open, priority unset | BR-02/03/04; AC-01.1–01.5; APPROVED D-09 / Q-11 |
 | C-09 | Cancel / button | Видимий усім auth | T-08 → закриття modal, **без створення issue** | G2, UX modal APPROVED D-01; не нова SOURCE-вимога |
 | C-10 | Validation error / inline text | Лише при невалідній формі; не є кнопкою | Показати `Title is required` або Description required без створення | AC-01.2/01.3; Gherkin для Title; PROPOSED D-10 для решти текстів |
 
@@ -200,7 +200,7 @@
 | T-04 / T-05 | S-02-A/B → S-03 | Відкрити вибраний існуючий issue |
 | T-06 / T-07 | S-02-A/B → M-01 | Лише auth user; відкрити modal |
 | T-08 | M-01 → вкладка, звідки відкрили | Cancel не створює issue |
-| T-09 | M-01 → стан успішного Create; далі Q-11 | Згенеровані ID/author/created_at, Open, Not Set; destination unresolved |
+| T-09 | M-01 → S-03 нового issue (APPROVED D-09) | Лише успішний Create; S-03 показує саме новий ID, author/created_at, Open, Not Set; невдала валідація не запускає T-09 |
 | T-10 / T-11 | S-03 → S-03 / без зміни | Lead призначає одного team member; Member не може |
 | T-12 / T-13 | S-03 → S-03 / без зміни | Lead змінює priority; Member не може; немає settings page |
 | T-14–T-17 | S-03 → S-03 | 4 валідні зміни статусу, тільки assignee |
@@ -219,7 +219,7 @@
 | AC-01.1 | UIR-01.1 | M-01 | C-06/C-07 | TEST-01.1 | M/P |
 | AC-01.2 | UIR-01.2 | M-01 | C-06/C-08/C-10 | TEST-01.2 | M/P/I |
 | AC-01.3 | UIR-01.3 | M-01 | C-07/C-08/C-10 | TEST-01.3 | M/P/I |
-| AC-01.4 | UIR-01.4 | M-01 → S-03 (destination Q-11) | C-08/ANNOT-CREATE | TEST-01.4 | M/P/I |
+| AC-01.4 | UIR-01.4 | M-01 → S-03 нового issue (D-09) | C-08/ANNOT-CREATE | TEST-01.4 | M/P/I |
 | AC-01.5 | UIR-01.5 | M-01/S-03 | ANNOT-PRIORITY/C-12 | TEST-01.5 | M/P/I |
 
 ### US-02 — 5 критеріїв
@@ -339,7 +339,7 @@
 | TEST-X08 | Auth Member | У списку All нуль issues | Відкрити S-02-A | S-02-C у контексті All, а не error | Що фактичний storage порожній |
 | TEST-X09 | Auth Member | У загальному списку є тільки Low/Normal/Not Set або Closed | Відкрити Important | S-02-C у контексті Important | Правильність backend filtering |
 | TEST-X10 | Team Lead | S-03, priority Not Set | Вибрати High | Після успіху High відображається в S-03; жодного «Priority Settings» screen | Persistence; конкретний Apply без D-06 |
-| TEST-X11 | Auth Member | M-01 з Title/Description | Submit, успішне створення | Новий issue має Open/Not Set, ID/author/time; destination **UNRESOLVED Q-11** | Реальний success чи route без рішення D-09 |
+| TEST-X11 | Auth Member | M-01 з Title/Description | Submit, успішне створення | S-03 показує **саме новостворений issue** з Open/Not Set, ID/author/time (APPROVED D-09) | Реальне збереження, ID consistency і фактичний перехід застосунку без integration test |
 | TEST-X12 | Auth Member | S-03, коментар непорожній | Імітувати помилку збереження | Error; новий comment не з'являється, author/time для нього не вигадуються | Server transaction rollback |
 
 ## 8. Потрібні бізнес- та UX-рішення — окремо від SOURCE
@@ -353,7 +353,7 @@
 | D-06 | Вибір + локальний Apply, успіх залишає S-03 | APPROVE/REJECT | C-17 і детальна поведінка T-10/T-12/T-14–17 |
 | D-07 | Back зберігає попередню вкладку | APPROVE/REJECT | T-22/T-23; navigation context |
 | D-08 | Умовні навчальні дані та визначені результати прототипу | APPROVE/REJECT | Figma/testing; не backend |
-| PROPOSED D-09 | Після Create: повернутися до All, до вкладки виклику, чи відкрити S-03? | Обрати єдину ціль; внести в Decision Log | **Q-11 блокує повний T-09 маршрут** |
+| APPROVED D-09 / Q-11 | Після успішного Create відкрити S-03 **саме нового issue** | Погоджено розробником проєкту 2026-11-08; записано в Decision Log | **ВИРІШЕНО:** T-09 → S-03; потрібне тестування, не PASS |
 | PROPOSED D-10 | Які UI-формати повідомлень/placeholder, крім Gherkin Title? | Затвердити тільки потрібні UI-тексти/стиль | Q-05/Q-06/Q-07; не змінює AC |
 | Q-01 | Механізм authentication | Уточнення S1 / реалізації | Не створювати псевдо login |
 | Q-04 | Технічне представлення Not Set | Архітектура/розробник | Не вгадувати null/enum |
@@ -371,4 +371,4 @@
 - **Верифікація P:** лише демонстрація дозволених і заборонених переходів, які погоджені; клікабельний прототип не доводить persistence, auth чи транзакційності.
 - **Верифікація I:** перевірка server-side permissions, timestamp/author/ID, allowed status values/transitions, comment save failure без створеного запису, спільний data source, response time <1s, HTTPS та backup. Не додавати для них вигаданих screen.
 - **Виключено:** US-09 attachments (Deferred), SR-10/SR-11 AI (Future), issue deletion, separate change history, integrations, portal, billing, mobile app.
-- **Незавершене:** D-02–D-08, PROPOSED D-09/D-10 та залежні Q-ID. Input Pack і Screen Map мають REVIEW, не APPROVED; **це draft контрактів G3**, а не підтвердження незалежного Control B.
+- **Незавершене:** D-01–D-09 погоджені; Q-11 вирішено D-09. PROPOSED D-10 та інші технічні/візуальні уточнення залишаються відкритими. Input Pack і Screen Map мають REVIEW, не APPROVED; **це draft контрактів G3**, а не підтвердження незалежного Control B.
