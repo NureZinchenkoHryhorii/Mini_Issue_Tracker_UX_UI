@@ -332,266 +332,268 @@
 
 ---
 
-## 4. UI-relevant Business Rules
+## 4. Бізнес-правила, важливі для UI
 
-### 4.1 Authentication and actors
+### 4.1 Автентифікація та актори
 
-| Rule | Requirement | Type | Source |
+| Правило | Вимога | Тип | Джерело |
 |---|---|---|---|
-| BR-01 | Only authenticated team members may use the system. The first version has two Team Members and one Team Lead predefined. | SOURCE | S1 §3 BR-01 |
-| BR-02 | Any authenticated team member can create an issue. | SOURCE | S1 §3 BR-02 |
-| US-03 assignment restriction | Only Team Lead can assign an issue. | SOURCE | S1 §5 US-03, AC point 3; §1 Open Questions |
-| BR-06 | Only Team Lead can set or change issue priority. | SOURCE | S1 §3 BR-06 |
-| BR-08 + AC-07.4 | The responsible/current assignee can change status; a non-assignee cannot. | SOURCE | S1 §3 BR-08; §5 AC-07.4 |
+| BR-01 | Системою можуть користуватися лише автентифіковані учасники команди. У першій версії є два наперед визначені Team Member й один Team Lead. | SOURCE | S1 §3 BR-01 |
+| BR-02 | Будь-який автентифікований учасник команди може створювати issue. | SOURCE | S1 §3 BR-02 |
+| Обмеження призначення US-03 | Лише Team Lead може призначати issue. | SOURCE | S1 §5 US-03, AC, пункт 3; §1 Open Questions |
+| BR-06 | Лише Team Lead може встановлювати або змінювати priority. | SOURCE | S1 §3 BR-06 |
+| BR-08 + AC-07.4 | Відповідальний/поточний assignee може змінювати статус; не-assignee не може. | SOURCE | S1 §3 BR-08; §5 AC-07.4 |
 
-### 4.2 Initial values and allowed values
+### 4.2 Початкові й допустимі значення
 
-| Property | Required value / behavior | Type | Source |
+| Властивість | Вимога до значення / поведінки | Тип | Джерело |
 |---|---|---|---|
-| New issue status | Open | SOURCE | S1 §3 BR-03; §5 AC-01.4, AC-07.1 |
-| New issue priority | Not Set / unset / empty | SOURCE | S1 §3 BR-04; §5 AC-01.5 |
-| Set priority values | Low, Normal, High, Critical | SOURCE | S1 §3 BR-05; §5 AC-04.1 |
-| Allowed statuses | Open, In Progress, Resolved, Closed | SOURCE | S1 §3 BR-07; §5 AC-07.2 |
-| Assignee count | One assignee can be selected | SOURCE | S1 §5 US-03, AC point 1 |
-| Assignee eligibility | Must be a team member | SOURCE | S1 §5 US-03, AC point 2 |
+| Статус нового issue | Open | SOURCE | S1 §3 BR-03; §5 AC-01.4, AC-07.1 |
+| Priority нового issue | Not Set / невстановлений / порожнє значення | SOURCE | S1 §3 BR-04; §5 AC-01.5 |
+| Допустимі встановлені priority | Low, Normal, High, Critical | SOURCE | S1 §3 BR-05; §5 AC-04.1 |
+| Допустимі статуси | Open, In Progress, Resolved, Closed | SOURCE | S1 §3 BR-07; §5 AC-07.2 |
+| Кількість assignee | Можна вибрати одного assignee | SOURCE | S1 §5 US-03, AC, пункт 1 |
+| Вимоги до assignee | Має бути членом команди | SOURCE | S1 §5 US-03, AC, пункт 2 |
 
-`DERIVED` — Not Set is an absence of priority and must not be represented as a selectable fifth priority level.
+`DERIVED` — Not Set означає відсутність priority, а не п'ятий варіант установленого рівня.
 
-**Sources:** S1 §3 BR-04, BR-05; §5 AC-04.1.
+**Джерела:** S1 §3 BR-04, BR-05; §5 AC-04.1.
 
-### 4.3 Status transitions and restrictions
+### 4.3 Переходи статусів і обмеження
 
-| Rule | Required behavior | Type | Source |
+| Правило | Необхідна поведінка | Тип | Джерело |
 |---|---|---|---|
-| Allowed transition 1 | Open → In Progress | SOURCE | S1 §3 BR-08.1 |
-| Allowed transition 2 | In Progress → Resolved | SOURCE | S1 §3 BR-08.1 |
-| Allowed transition 3 | Resolved → Closed | SOURCE | S1 §3 BR-08.1 |
-| Allowed transition 4 | Resolved → In Progress (reopen work) | SOURCE | S1 §3 BR-08.1 |
-| Other transitions | Not allowed | SOURCE | S1 §3 BR-08.1 |
-| Closed | No outgoing transition is specified or permitted | DERIVED | S1 §3 BR-08.1 |
-| Status permission | Non-assignee cannot change status | SOURCE | S1 §5 AC-07.4 |
-| Invalid status values | Must not be accepted | SOURCE | S1 §5 AC-07.5 |
+| Дозволений перехід 1 | Open → In Progress | SOURCE | S1 §3 BR-08.1 |
+| Дозволений перехід 2 | In Progress → Resolved | SOURCE | S1 §3 BR-08.1 |
+| Дозволений перехід 3 | Resolved → Closed | SOURCE | S1 §3 BR-08.1 |
+| Дозволений перехід 4 | Resolved → In Progress (повторне відкриття роботи) | SOURCE | S1 §3 BR-08.1 |
+| Інші переходи | Заборонені | SOURCE | S1 §3 BR-08.1 |
+| Closed | Вихідних переходів не передбачено й не дозволено | DERIVED | S1 §3 BR-08.1 |
+| Право змінювати статус | Не-assignee не може змінити status | SOURCE | S1 §5 AC-07.4 |
+| Недопустимі значення status | Не можна приймати | SOURCE | S1 §5 AC-07.5 |
 
-### 4.4 Important Issues predicate
+### 4.4 Правило відбору Important Issues
 
-`DERIVED` — The inclusion rule is:
+`DERIVED` — Правило включення:
 
-**Priority is High or Critical AND Status is not Closed.**
+**Priority = High або Critical ТА Status != Closed.**
 
-This means:
+Отже:
 
-- High + Open → included.
-- High + In Progress → included.
-- High + Resolved → included.
-- Critical + Open → included.
-- Critical + In Progress → included.
-- Critical + Resolved → included.
-- Any priority + Closed → excluded.
-- Low or Normal + any status → excluded.
-- Not Set + any status → excluded because no qualifying priority is set.
+- High + Open → включено.
+- High + In Progress → включено.
+- High + Resolved → включено.
+- Critical + Open → включено.
+- Critical + In Progress → включено.
+- Critical + Resolved → включено.
+- Будь-який priority + Closed → виключено.
+- Low або Normal + будь-який status → виключено.
+- Not Set + будь-який status → виключено, адже потрібний priority не встановлено.
 
-**Sources:** S1 §3 BR-09, BR-09.1; §5 AC-08.1–AC-08.4.
+**Джерела:** S1 §3 BR-09, BR-09.1; §5 AC-08.1–AC-08.4.
 
-### 4.5 Comments
+### 4.5 Коментарі
 
-| Rule | Required behavior | Type | Source |
+| Правило | Необхідна поведінка | Тип | Джерело |
 |---|---|---|---|
-| Comment text | Cannot be empty | SOURCE | S1 §5 AC-06.1 |
-| Successful save | Comment is stored and shown for the issue | SOURCE | S1 §5 AC-06.2 |
-| Author | Stored and displayed | SOURCE | S1 §5 AC-06.3 |
-| Creation date/time | Stored and displayed | SOURCE | S1 §5 AC-06.4 |
-| Failed save | No comment is created; an error is produced | SOURCE | S1 §5 AC-06.5 |
+| Текст коментаря | Не може бути порожнім | SOURCE | S1 §5 AC-06.1 |
+| Успішне збереження | Коментар зберігається та відображається для issue | SOURCE | S1 §5 AC-06.2 |
+| Автор | Зберігається та відображається | SOURCE | S1 §5 AC-06.3 |
+| Дата/час створення | Зберігаються та відображаються | SOURCE | S1 §5 AC-06.4 |
+| Невдале збереження | Коментар не створюється; виникає помилка | SOURCE | S1 §5 AC-06.5 |
 
-### 4.6 Prohibited actions and absent capabilities
+### 4.6 Заборонені дії та відсутні можливості
 
-| Prohibition / absence | Type | Source |
+| Заборона / відсутня можливість | Тип | Джерело |
 |---|---|---|
-| Non-Team Lead cannot assign issues. | SOURCE | S1 §5 US-03, AC point 3 |
-| Non-Team Lead cannot set or change priority. | SOURCE | S1 §3 BR-06; §5 AC-04.2 |
-| Non-assignee cannot change issue status, including a Team Lead who is not the assignee. | SOURCE + DERIVED | S1 §5 AC-07.4; §3 BR-08 |
-| Status transitions outside the four specified transitions are not allowed. | SOURCE | S1 §3 BR-08.1 |
-| Invalid status values are not allowed. | SOURCE | S1 §5 AC-07.5 |
-| Issues cannot be deleted. | SOURCE | S1 §3 BR-10; §1 Open Questions |
-| Separate user-facing issue change history is not provided in the first version. | SOURCE | S1 §3 BR-11; §1 Open Questions |
-| Attachments are not part of the first release. | SOURCE | S1 §8 Deferred |
-| Automatic category and priority recommendations are not part of the first release. | SOURCE | S1 §8 Future |
-| AI must not automatically change category or priority if future AI functionality is implemented. | SOURCE | S1 §3 BR-12 |
+| Не-Team Lead не може призначати issues. | SOURCE | S1 §5 US-03, AC, пункт 3 |
+| Не-Team Lead не може встановлювати або змінювати priority. | SOURCE | S1 §3 BR-06; §5 AC-04.2 |
+| Не-assignee не може змінювати status, включно з Team Lead, якщо він не assignee. | SOURCE + DERIVED | S1 §5 AC-07.4; §3 BR-08 |
+| Переходи status поза чотирма дозволеними заборонені. | SOURCE | S1 §3 BR-08.1 |
+| Статуси поза списком Open, In Progress, Resolved, Closed заборонені. | SOURCE | S1 §5 AC-07.5 |
+| Не можна створити коментар із порожнім текстом. | SOURCE | S1 §5 AC-06.1 |
+| Невдале збереження не створює коментаря. | SOURCE | S1 §5 AC-06.5 |
+| Видалення issue не дозволено. | SOURCE | S1 §3 BR-10 |
+| Окремої користувацької історії змін у першій версії немає. | SOURCE | S1 §3 BR-11 |
+| Вкладення не входять до Release MVP. | SOURCE | S1 §8 Deferred |
+| Автоматична категоризація та рекомендації priority не входять до першого релізу. | SOURCE | S1 §8 Future |
+| У майбутньому AI не може автоматично змінювати category/priority без дії користувача. | SOURCE | S1 §3 BR-12 |
 
 ---
 
-## 5. Relevant Non-Functional Requirements
+## 5. Релевантні нефункціональні вимоги
 
-The final list in §8 is treated as the current release NFR list.
+Остаточний список у §8 використовується як чинний перелік NFR для поточного релізу.
 
-| ID | Requirement | UX/UI relevance | Can a static wireframe verify it? | Type / Source |
+| ID | Вимога | Значення для UX/UI | Чи може статичний wireframe підтвердити? | Тип / джерело |
 |---|---|---|---|---|
-| NFR-01 | Response time < 1 s | No specific screen is required. Performance is a runtime/system property. | No | SOURCE — S1 §8 Updated NFRs |
-| NFR-02 | Authentication required | The design must respect the authenticated-user boundary; authentication itself is not specified in detail. | Partially: a boundary can be documented, but actual authentication cannot be verified in a wireframe. | SOURCE — S1 §8 Updated NFRs; §3 BR-01 |
-| NFR-03 | HTTPS only | Technical transport/security requirement. | No | SOURCE — S1 §8 Updated NFRs |
-| NFR-04 | Backup of all data | Operational/data protection requirement. | No | SOURCE — S1 §8 Updated NFRs |
+| NFR-01 | Час відповіді < 1 с | Окремий екран не потрібний. Продуктивність — властивість системи під час роботи. | Ні | SOURCE — S1 §8 Updated NFRs |
+| NFR-02 | Автентифікація обов'язкова | Дизайн має враховувати межу доступу автентифікованих користувачів; конкретний механізм не визначений. | Частково: межу можна задокументувати, але саму автентифікацію неможливо перевірити wireframe. | SOURCE — S1 §8 Updated NFRs; §3 BR-01 |
+| NFR-03 | Лише HTTPS | Технічна вимога до транспорту/безпеки. | Ні | SOURCE — S1 §8 Updated NFRs |
+| NFR-04 | Резервне копіювання всіх даних | Операційна вимога до захисту даних. | Ні | SOURCE — S1 §8 Updated NFRs |
 
-### 5.1 Requirements not verifiable by static UI design
+### 5.1 Що не перевіряється статичним UI-дизайном
 
-`DERIVED` — A static wireframe or clickable prototype cannot prove:
+`DERIVED` — Статичний wireframe або клікабельний прототип не доводить:
 
-- Actual response time below one second.
-- Enforcement of authentication and authorization by the running system.
-- HTTPS transport.
-- Backup execution, completeness or restoration.
+- Фактичного часу відповіді менше однієї секунди.
+- Реального застосування автентифікації та авторизації в працюючій системі.
+- Використання HTTPS.
+- Виконання резервного копіювання, повноти копій або можливості відновлення.
 
-These requirements must remain documented and must not be claimed as verified through visual design.
+Ці вимоги залишаються задокументованими, але не можуть вважатися перевіреними візуальним дизайном.
 
-**Sources:** S1 §8 Updated NFRs; §3 BR-01, BR-06, BR-08.
+**Джерела:** S1 §8 Updated NFRs; §3 BR-01, BR-06, BR-08.
 
-### 5.2 Earlier NFR wording
+### 5.2 Попереднє формулювання NFR
 
-`SOURCE` — §6 contains an earlier example NFR-04 wording: “Backup of all data + attachments”. The final §8 Updated NFRs state “Backup of all data”.
+`SOURCE` — §6 містить попередній приклад NFR-04: «Backup of all data + attachments». Остаточний §8 Updated NFRs містить «Backup of all data».
 
-**UNRESOLVED / interpretation note:** The final release list does not include attachments because US-09 is deferred. The Pack records the final §8 wording and does not treat attachments as part of the first-release backup scope.
+**UNRESOLVED / примітка щодо трактування:** Фінальний список релізу не включає вкладення, оскільки US-09 відкладено. Pack зберігає фінальне формулювання §8 і не включає вкладення до обсягу резервного копіювання першого релізу.
 
-**Sources:** S1 §6 NFR-04; §8 Deferred and Updated NFRs.
+**Джерела:** S1 §6 NFR-04; §8 Deferred та Updated NFRs.
 
 ---
 
-## 6. Constraints and assumptions relevant to UX/UI
+## 6. Обмеження та припущення, релевантні для UX/UI
 
-| ID | Statement | Type | Source |
+| ID | Формулювання | Тип | Джерело |
 |---|---|---|---|
-| KC-01 | The system is intended for a small internal team. | SOURCE | S1 §1 KC-01 |
-| KC-02 | The first release should be simple and quick to develop. | SOURCE | S1 §1 KC-02 |
-| KC-03 | The system must work as a web application. | SOURCE | S1 §1 KC-03 |
-| KC-04 | Users are team members, not external customers. | SOURCE | S1 §1 KC-04 |
-| KC-05 | No GitHub, GitLab, Jira or other issue-tracker integration is planned for the first version. | SOURCE | S1 §1 KC-05 |
-| KC-06 | AI functionality is not mandatory for the first release. | SOURCE | S1 §1 KC-06 |
-| KC-07 | The solution should be suitable for future AI extensions. | SOURCE | S1 §1 KC-07 |
-| A-01 | All users are assumed to belong to one team. | SOURCE — assumption | S1 §1 Assumptions |
-| A-02 | The number of users is small, e.g. up to a few dozen. | SOURCE — assumption | S1 §1 Assumptions |
-| A-03 | Only a small number of users are assumed to work simultaneously. | SOURCE — assumption | S1 §1 Assumptions |
-| A-04 | One responsible assignee is sufficient for an issue. | SOURCE — assumption | S1 §1 Assumptions |
-| A-05 | An issue has one current priority. | SOURCE — assumption | S1 §1 Assumptions |
-| A-06 | Comments are sufficient for team discussion around an issue. | SOURCE — assumption | S1 §1 Assumptions |
-| A-07 | A mobile application is not required for the first version. | SOURCE — assumption | S1 §1 Assumptions |
-| A-08 | Future AI features are assumed to be recommendations, not automatic changes. | SOURCE — assumption | S1 §1 Assumptions |
-| A-09 | There may be insufficient existing data to train an AI model. | SOURCE — assumption | S1 §1 Assumptions |
+| KC-01 | Система призначена для невеликої внутрішньої команди. | SOURCE | S1 §1 KC-01 |
+| KC-02 | Перший реліз має бути простим і швидким у розробці. | SOURCE | S1 §1 KC-02 |
+| KC-03 | Система повинна працювати як вебзастосунок. | SOURCE | S1 §1 KC-03 |
+| KC-04 | Користувачами є члени команди, а не зовнішні клієнти. | SOURCE | S1 §1 KC-04 |
+| KC-05 | У першій версії не планується інтеграція з GitHub, GitLab, Jira та іншими issue trackers. | SOURCE | S1 §1 KC-05 |
+| KC-06 | AI-функції не є обов'язковими для першого релізу. | SOURCE | S1 §1 KC-06 |
+| KC-07 | Рішення має допускати майбутнє розширення AI-функціями. | SOURCE | S1 §1 KC-07 |
+| A-01 | Припускається, що всі користувачі належать до однієї команди. | SOURCE — припущення | S1 §1 Assumptions |
+| A-02 | Припускається невелика кількість користувачів, наприклад кілька десятків. | SOURCE — припущення | S1 §1 Assumptions |
+| A-03 | Припускається невелика кількість одночасно активних користувачів. | SOURCE — припущення | S1 §1 Assumptions |
+| A-04 | Для issue достатньо одного відповідального assignee. | SOURCE — припущення | S1 §1 Assumptions |
+| A-05 | Issue має один поточний priority. | SOURCE — припущення | S1 §1 Assumptions |
+| A-06 | Коментарів достатньо для командного обговорення issue. | SOURCE — припущення | S1 §1 Assumptions |
+| A-07 | У першій версії мобільний застосунок не потрібний. | SOURCE — припущення | S1 §1 Assumptions |
+| A-08 | Майбутні AI-функції мають бути рекомендаційними, без автоматичних змін. | SOURCE — припущення | S1 §1 Assumptions |
+| A-09 | Наявних даних для навчання AI-моделі може бути недостатньо. | SOURCE — припущення | S1 §1 Assumptions |
 
-Assumptions are retained as assumptions; they are not silently promoted to confirmed implementation requirements.
+Припущення залишаються припущеннями й не перетворюються непомітно на підтверджені вимоги реалізації.
 
 ---
 
-## 7. Unresolved questions and conflicts (Q-ID)
+## 7. Невирішені питання та суперечності (Q-ID)
 
-These items require a human decision or clarification. They are not silently resolved by this Pack.
+Ці питання потребують рішення людини або уточнення. Вони не вирішуються непомітно всередині Pack.
 
-| Q-ID | Question / ambiguity | Evidence and source | Impact |
+| Q-ID | Питання / неоднозначність | Доказ і джерело | Вплив |
 |---|---|---|---|
-| Q-01 | Which authentication method is used? The specification requires authentication and three predefined users but does not define login mechanics. | S1 §1 Open Questions; §3 BR-01; §7 R-01; §8 NFR-02 | Do not invent password, SSO or other authentication screens/mechanics. |
-| Q-02 | What is the initial assignee state of a newly created issue? Is it unassigned by default? | S1 §5 US-01 AC-01.4; US-02 AC-02.2/02.4; US-03 | The source says assignee may be absent in list/details, but does not explicitly define the initial assignment value. |
-| Q-03 | Can Team Lead reassign an issue after an assignee has already been selected? | S1 §5 US-03 states that one assignee can be selected and only Team Lead can assign; it does not explicitly describe reassignment. | Do not assume reassignment behavior without approval. |
-| Q-04 | How should the UI represent the technical value for Not Set? Is it stored as null, an enum value or another representation? | S1 §3 BR-04/BR-05; §5 AC-01.5; methodology notes | UI meaning is clear (no priority); technical representation is not. |
-| Q-05 | What exact error text and presentation are required when a comment save fails? | S1 §5 AC-06.5 | The existence of an error is required; its exact wording and visual treatment are unspecified. |
-| Q-06 | What are the date/time format and timezone rules for displaying issue creation time and comment creation time? | S1 §5 AC-02.4; AC-06.4 | Required data is known; display formatting is not. |
-| Q-07 | Does “Important Open Issues” mean only status Open, or all statuses except Closed? | S1 §5 US-08 title/goal and AC-08.1/08.2; §3 BR-09.1 | The title/goal says “open”, but the explicit criteria include every status except Closed; BR-09.1 confirms Resolved remains active. The implementation rule is clear from AC/BR; naming remains potentially misleading. |
-| Q-08 | What is the scope and measurement method for response time < 1 s? | S1 §8 NFR-01 | Cannot be tested or demonstrated by a static mockup. |
-| Q-09 | What backup frequency, retention period and restore procedure are required? | S1 §8 NFR-04 | The backup requirement exists, but operational details are not specified. |
-| Q-10 | Which exact predefined user identities/names are used for the two Team Members and one Team Lead? | S1 §1 Open Questions; §3 BR-01 | Do not invent real identities; sample names require a design/test-data decision. |
+| Q-01 | Який механізм автентифікації? S1 вимагає автентифікацію й трьох наперед визначених користувачів, але не уточнює механізм login. | S1 §1 Open Questions; §3 BR-01; §7 R-01; §8 NFR-02 | Не вигадувати password, SSO чи інший механізм/екран автентифікації. |
+| Q-02 | Який початковий стан assignee нового issue? Чи залишається він без призначення? | S1 §5 US-01 AC-01.4; US-02 AC-02.2/02.4; US-03 | У джерелі допускається відсутній assignee у списку/деталях, але явно не задано початкове значення. |
+| Q-03 | Чи може Team Lead перепризначити issue після першого призначення assignee? | S1 §5 US-03 дозволяє обрати одного assignee й дає право Team Lead, але явно не визначає перепризначення. | Не припускати поведінку перепризначення без погодження. |
+| Q-04 | Як UI має трактувати технічне значення Not Set? Це null, enum чи інше представлення в БД? | S1 §3 BR-04/BR-05; §5 AC-01.5; методичні примітки | Зміст для UI зрозумілий (priority відсутній), але технічне представлення не визначено. |
+| Q-05 | Який точний текст і спосіб показу помилки під час невдалого збереження коментаря? | S1 §5 AC-06.5 | Наявність помилки є вимогою, але точний текст і вигляд не визначено. |
+| Q-06 | Який формат дати/часу й часовий пояс використовувати для issue та comments? | S1 §5 AC-02.4; AC-06.4 | Необхідні поля визначено, формат відображення — ні. |
+| Q-07 | Чи «Important Open Issues» означає лише статус Open, чи всі статуси, крім Closed? | S1 §5 US-08 назва/мета та AC-08.1/08.2; §3 BR-09.1 | Назва містить «open», але точні AC включають усі статуси, крім Closed; BR-09.1 включає Resolved. Логіка визначена, але назва може вводити в оману. |
+| Q-08 | Як визначити сферу та спосіб вимірювання response time < 1 s? | S1 §8 NFR-01 | Не перевіряється статичним макетом. |
+| Q-09 | Яка частота backup, термін зберігання та процедура відновлення? | S1 §8 NFR-04 | Вимога існує, але операційні деталі не визначено. |
+| Q-10 | Які точні імена/ідентифікатори трьох наперед визначених користувачів? | S1 §1 Open Questions; §3 BR-01 | Не вигадувати реальні особистості; демонстраційні імена потребують рішення для тестових даних. |
 
-### 7.1 Important rule interpretation — status permission
+### 7.1 Важливе трактування правила доступу до status
 
-`SOURCE` — BR-08 states that the team member responsible for an issue should be able to change its status.
+`SOURCE` — BR-08 вказує, що відповідальний учасник команди повинен мати можливість змінювати статус issue.
 
-`SOURCE` — AC-07.4 states that a user who is not the issue assignee cannot change its status.
+`SOURCE` — AC-07.4 вказує, що користувач, який не є assignee, не може змінювати статус.
 
-`DERIVED` — For UI permission modeling, the current assignee is the authorized status-changing user. Team Lead status permission is not implied merely by the Team Lead role. A Team Lead who is not the assignee remains restricted by AC-07.4.
+`DERIVED` — У моделі прав UI саме поточний assignee може змінювати статус. Сам по собі статус Team Lead не дає цього права. Team Lead, який не призначений виконавцем, залишається обмеженим AC-07.4.
 
-**Sources:** S1 §3 BR-08; §5 AC-07.4.
+**Джерела:** S1 §3 BR-08; §5 AC-07.4.
 
-### 7.2 Important rule interpretation — Important Issues
+### 7.2 Важливе трактування Important Issues
 
-`SOURCE` — US-08 uses the phrase “Important Open Issues”, but AC-08.1 and AC-08.2 include High/Critical issues with any status other than Closed. BR-09.1 explicitly says Resolved is not yet Closed and remains active.
+`SOURCE` — US-08 використовує «Important Open Issues», але AC-08.1/08.2 включають High/Critical issues з будь-яким статусом, крім Closed. BR-09.1 прямо вказує, що Resolved ще не Closed і залишається активним.
 
-`DERIVED` — The predicate must be based on priority High/Critical and status not Closed, not status = Open only.
+`DERIVED` — Умова відбору має бути priority High/Critical і status != Closed, а не лише status = Open.
 
-**Sources:** S1 §3 BR-09, BR-09.1; §5 AC-08.1–AC-08.4.
-
----
-
-## 8. PROPOSED items — not binding requirements
-
-No proposed UX decisions are approved by this Input Pack.
-
-The following items are intentionally **not** treated as source requirements:
-
-- Exact screen count or screen names.
-- Desktop-only layout.
-- Grayscale or low-fidelity visual style.
-- Tabs for All Issues / Important Issues.
-- A modal rather than a separate page for Create Issue.
-- Disabled versus hidden controls for unavailable actions.
-- Exact placement or wording of validation messages, except the source Gherkin example `Title is required`.
-- An Apply button or any specific save interaction.
-- Default assignee behavior.
-- Navigation behavior after closing issue details.
-- Figma frame count, component names or prototype connections.
-
-**Type:** PROPOSED / not approved.  
-**Reason:** These are UX/design decisions, not explicit source requirements. They belong in a separate Decision Log and must be approved before being treated as binding.
+**Джерела:** S1 §3 BR-09, BR-09.1; §5 AC-08.1–AC-08.4.
 
 ---
 
-## 9. Source Check
+## 8. PROPOSED — пропозиції, що не є обов'язковими вимогами
 
-### 9.1 Included User Stories → all AC → Pack location
+Цей Input Pack не затверджує жодного запропонованого UX-рішення.
 
-| Included US | Source AC count | Source criteria accounted for | Pack location |
+Наведені нижче питання навмисно **не** вважаються вимогами джерела:
+
+- Точна кількість екранів або їхні назви.
+- Лише desktop layout.
+- Grayscale або low-fidelity стиль.
+- Вкладки All Issues / Important Issues.
+- Модальне вікно замість окремої сторінки Create Issue.
+- Disabled чи hidden для недоступних дій.
+- Точне розташування й формулювання повідомлень валідації, крім вихідного Gherkin-прикладу `Title is required`.
+- Кнопка Apply або інша конкретна взаємодія збереження.
+- Початкове значення assignee.
+- Навігація після закриття деталей issue.
+- Кількість Figma frames, назви компонентів, зв'язки прототипу.
+
+**Тип:** PROPOSED / не погоджено.  
+**Причина:** Це UX/дизайн-рішення, а не прямі вимоги джерела. Вони мають бути записані в окремому Decision Log і погоджені до того, як стануть обов'язковими.
+
+---
+
+## 9. Перевірка джерела (Source Check)
+
+### 9.1 Включені US → усі AC → розташування у Pack
+
+| Включена US | Кількість AC джерела | Ураховані критерії джерела | Розташування у Pack |
 |---|---:|---|---|
-| US-01 — Create Issue | 5 | AC-01.1–AC-01.5 | §3 US-01 |
-| US-02 — View Issues | 5 | AC-02.1–AC-02.5 | §3 US-02 |
-| US-03 — Assign Issue | 4 | Four original unnumbered points, retained by original position | §3 US-03 |
-| US-04 — Set Issue Priority | 2 | AC-04.1–AC-04.2 | §3 US-04 |
-| US-05 — Track Issue Progress | 3 | AC-05.1–AC-05.3 | §3 US-05 |
-| US-06 — Add Comment | 5 | AC-06.1–AC-06.5 | §3 US-06 |
-| US-07 — Update Issue Status | 5 | AC-07.1–AC-07.5 | §3 US-07 |
-| US-08 — View Important Open Issues | 4 | AC-08.1–AC-08.4 | §3 US-08 |
-| **TOTAL** | **33** | **All 33 substantive AC accounted for** | **§3** |
+| US-01 — Створення issue | 5 | AC-01.1–AC-01.5 | §3 US-01 |
+| US-02 — Перегляд issues | 5 | AC-02.1–AC-02.5 | §3 US-02 |
+| US-03 — Призначення assignee | 4 | Чотири вихідні ненумеровані пункти за початковим порядком | §3 US-03 |
+| US-04 — Пріоритет issue | 2 | AC-04.1–AC-04.2 | §3 US-04 |
+| US-05 — Прогрес issue | 3 | AC-05.1–AC-05.3 | §3 US-05 |
+| US-06 — Коментар | 5 | AC-06.1–AC-06.5 | §3 US-06 |
+| US-07 — Статус issue | 5 | AC-07.1–AC-07.5 | §3 US-07 |
+| US-08 — Важливі незакриті issues | 4 | AC-08.1–AC-08.4 | §3 US-08 |
+| **РАЗОМ** | **33** | **Усі 33 змістові AC ураховано** | **§3** |
 
-`SOURCE CHECK` — The four US-03 criteria are unnumbered in S1 and have not been assigned invented AC identifiers. Gherkin examples under US-01 are alternative examples, not additional acceptance criteria.
+`SOURCE CHECK` — Чотирьом ненумерованим критеріям US-03 не надано вигаданих AC-ID. Gherkin-приклади US-01 — альтернативні приклади, а не додаткові Acceptance Criteria.
 
-**Sources:** S1 §5; §8 Release Scope. Methodology Control A, §5.
+**Джерела:** S1 §5, §8 Release Scope; Методичні рекомендації, Контроль A, §5.
 
-### 9.2 Excluded requirements and reasons
+### 9.2 Виключені вимоги та причини
 
-| Requirement | Status | Reason | Source |
+| Вимога | Статус | Причина | Джерело |
 |---|---|---|---|
-| US-09 — Attach files to an issue | Deferred / excluded from Release MVP | Explicitly listed as Deferred in final Release Scope. | S1 §8 |
-| SR-10 — Automatic issue categorization | Future / excluded from Release MVP | Explicitly listed as Future. | S1 §8 |
-| SR-11 — Automatic priority recommendation | Future / excluded from Release MVP | Explicitly listed as Future. | S1 §8 |
-| Issue deletion | Out of current release | BR-10 says issues are not deleted. | S1 §3 BR-10 |
-| Separate issue change history | Out of current release | BR-11 says a separate user-facing change history is not provided in the first version. | S1 §3 BR-11 |
-| Customer support portal, billing, source-code hosting, CI/CD, time tracking, full project management, mobile application | Out of scope | Explicitly listed in Initial Product Scope. | S1 §2 |
-| GitHub/GitLab/Jira or other issue-tracker integrations | Out of scope for first version | KC-05. | S1 §1 KC-05 |
+| US-09 — Прикріплення файлів до issue | Deferred / не входить до Release MVP | Прямо зазначено в остаточному Release Scope. | S1 §8 |
+| SR-10 — Автоматична категоризація issue | Future / не входить до Release MVP | Прямо зазначено як Future. | S1 §8 |
+| SR-11 — Автоматична рекомендація priority | Future / не входить до Release MVP | Прямо зазначено як Future. | S1 §8 |
+| Видалення issues | Не передбачено поточним релізом | BR-10: issues не видаляються. | S1 §3 BR-10 |
+| Окрема історія змін issue | Не передбачено поточним релізом | BR-11: окремої користувацької історії в першій версії немає. | S1 §3 BR-11 |
+| Портал підтримки клієнтів, білінг, хостинг коду, CI/CD, облік часу, повне управління проєктами, мобільний застосунок | Поза обсягом | Прямо зазначено в початковому обсязі продукту. | S1 §2 |
+| Інтеграції з GitHub/GitLab/Jira та іншими issue trackers | Поза першим релізом | KC-05. | S1 §1 KC-05 |
 
-### 9.3 Unresolved questions
+### 9.3 Невирішені питання
 
-- Q-01 — Authentication method.
-- Q-02 — Initial assignee state.
-- Q-03 — Reassignment behavior.
-- Q-04 — Technical representation of Not Set.
-- Q-05 — Exact comment save-error text/presentation.
-- Q-06 — Date/time format and timezone.
-- Q-07 — “Important Open Issues” naming versus explicit non-Closed predicate.
-- Q-08 — Response-time measurement scope.
-- Q-09 — Backup frequency, retention and restore details.
-- Q-10 — Names/identities for predefined sample users.
+- Q-01 — Спосіб автентифікації.
+- Q-02 — Початковий стан assignee.
+- Q-03 — Повторне призначення issue.
+- Q-04 — Технічне представлення Not Set.
+- Q-05 — Точний текст/вигляд помилки збереження коментаря.
+- Q-06 — Формат дати/часу й часовий пояс.
+- Q-07 — Назва «Important Open Issues» і правило для всіх не-Closed.
+- Q-08 — Метод вимірювання часу відповіді.
+- Q-09 — Частота, зберігання та відновлення резервних копій.
+- Q-10 — Імена/ідентифікатори наперед визначених демонстраційних користувачів.
 
-### 9.4 Final extraction status
+### 9.4 Підсумковий стан вибірки
 
-- Final Release MVP identified from §8: **US-01–US-08**.
-- Included User Stories: **8**.
-- Substantive Acceptance Criteria: **33**.
-- US-03 unnumbered criteria preserved: **4**.
-- Deferred: **US-09**.
-- Future: **SR-10, SR-11**.
-- UI-relevant BR preserved: **BR-01–BR-12 where applicable**.
-- Unresolved questions recorded: **Q-01–Q-10**.
+- Остаточний Release MVP за §8: **US-01–US-08**.
+- Включених User Stories: **8**.
+- Змістових Acceptance Criteria: **33**.
+- Збережено ненумерованих критеріїв US-03: **4**.
+- Відкладено: **US-09**.
+- Майбутні вимоги: **SR-10, SR-11**.
+- UI-релевантні BR: **BR-01–BR-12 у відповідних місцях**.
+- Невирішені питання: **Q-01–Q-10**.
 
-**Status: DRAFT — awaiting human source check and decisions. Not approved.**
+**Статус: ЧЕРНЕТКА — очікує перевірки джерела й рішень людини. Не затверджено.**
