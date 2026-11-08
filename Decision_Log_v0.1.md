@@ -2,7 +2,7 @@
 
 **File:** `Decision_Log_v0.1.md`  
 **Version:** v0.1  
-**Status:** DRAFT — proposed decisions only; no approvals recorded  
+**Status:** IN PROGRESS — D-01 approved by project developer; D-02–D-08 pending  
 **Date initialized:** 2026-11-08  
 **Inputs:** S1 `SD_Spec.docx.pdf`; Methodological Guide §6; `01_Input_Pack_v1.0.md`.
 
@@ -10,7 +10,7 @@
 
 | D-ID | Proposed decision | Source | Status | Approved by | Approval date |
 |---|---|---|---|---|---|
-| D-01 | Desktop grayscale low-fi; one Issues List with All / Important tabs; Create modal | Guide §6 | PROPOSED — NOT APPROVED | — | — |
+| D-01 | Desktop grayscale low-fi; one Issues List with All / Important tabs; Create modal | Guide §6 | APPROVED | Project developer (user confirmation in ChatGPT) | 2026-11-08 |
 | D-02 | S-01 is an authentication boundary placeholder; demo begins in authenticated S-02; do not invent login/SSO | Guide §6 | PROPOSED — NOT APPROVED | — | — |
 | D-03 | Show unset priority as Not Set; only Low/Normal/High/Critical selectable; no reset action | Guide §6 | PROPOSED — NOT APPROVED | — | — |
 | D-04 | New issue is unassigned; Team Lead may reassign | Guide §6; S1 gap | PROPOSED — NOT APPROVED; explicit decision needed | — | — |
@@ -41,7 +41,7 @@ These entries are **not** S1 requirements. A student/teacher/reviewer must expli
 
 | Date | Reviewer/decision maker | D-ID | Final decision | Status (APPROVED / REJECTED / DEFERRED) | Reason / source impact |
 |---|---|---|---|---|---|
-| — | — | — | — | PENDING | — |
+| 2026-11-08 | Project developer (user confirmation in ChatGPT) | D-01 | Desktop grayscale low-fidelity; one Issues List with All / Important tabs; Create modal | APPROVED | Confirmed explicitly in project conversation; methodology §6 UX choice, not S1 requirement |
 
 ## Rules for using this log
 
