@@ -1,8 +1,8 @@
 # Mini Issue Tracker — Figma Design Implementation Brief
 
 **Artifact:** `05_Figma_Brief_v1.0.md`  
-**Status:** **DRAFT / NOT APPROVED — DO NOT RUN FIGMA GENERATION YET**  
-**Approval gate:** Independent human Control B is still PENDING. This document is a precompiled implementation draft, not permission to generate. After Control B confirms no blocking issues and the developer approves the reviewed Input Pack and Screen Contracts, recheck this brief against those approved versions before use.  
+**Status:** **WORKING DRAFT — developer elected to proceed to F1 with Control B SKIPPED; NOT independently approved**  
+**Review record:** On 2026-11-08 the developer explicitly chose to SKIP independent Control B and proceed to F1. No reviewer, independent acceptance, or approval is claimed. Input Pack v1.0 and Screen Contracts v1.0 remain REVIEW / NOT APPROVED; use their current versions as the implementation basis. Figma Agent **may generate the working wireframes now**. Record skipped review as an acknowledged process deviation, not as a passed quality gate.  
 **Source of truth:** S1 `SD_Spec.docx.pdf` (§1, §3, §5, §8); `01_Input_Pack_v1.0.md`; `02_Screen_Map_v1.0.md`; `03_Screen_Contracts_v1.0.md` (§2–§7, §10); `Decision_Log_v0.1.md` (approved D-01–D-09).
 
 ## 1. Purpose and scope
@@ -170,6 +170,6 @@ No backend/API/database architecture, upload/export workflow, working authentica
 - [ ] Fictional data is consistent across rows/details and demonstrates positive/negative Important cases; no dynamic logic is claimed.
 - [ ] Notes and state references are outside product frames; no page icon placeholders, decorative squares, row selections, bulk controls, or extra functionality.
 - [ ] No Figma prototype wiring, export, backend implementation, authentication coding, or claims of server-side tests.
-- [ ] **Approval gate before generation:** Independent Control B recorded with Reviewer, Date, Version, Accepted decisions, Open blockers, and explicit acceptance. If any blocking issue remains, **do not generate**.
+- [ ] **Review-status transparency:** Control B was **SKIPPED by explicit developer choice on 2026-11-08**; this is not independent acceptance. The wireframes are a working F1 draft based on REVIEW contracts, and must not be labeled fully approved or independently verified.
 
 **Source identifiers:** S1 BR-01–BR-11, BR-08.1, BR-09.1; US-01–US-08 and their 33 AC. **Approved UX decisions:** D-01–D-09. **Unapproved optional UX copy details:** proposed D-10 (not incorporated as binding rules). **Test status:** tests in Screen Contracts are specifications and remain NOT RUN.
