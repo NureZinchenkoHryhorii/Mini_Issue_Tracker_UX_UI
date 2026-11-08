@@ -1,334 +1,334 @@
-# UX/UI Design Input Pack — Mini Issue Tracker
+# UX/UI Input Pack — Mini Issue Tracker
 
-**File:** `01_input_pack_v0.1.md`  
-**Version:** v0.1  
-**Status:** DRAFT — not approved  
-**Source specification:** `SD_Spec.docx.pdf` (S1)  
-**Purpose:** Verified input for UX/UI planning. This document extracts requirements; it does not define screens or approve new UX decisions.
+**Файл:** `01_Input_Pack_v0.1.md`  
+**Версія:** v0.1  
+**Статус:** ЧЕРНЕТКА — не затверджено  
+**Вихідна специфікація:** `SD_Spec.docx.pdf` (S1)  
+**Призначення:** перевірена вибірка вимог для планування UX/UI. Цей документ витягує вимоги, а не визначає екрани чи затверджує нові UX-рішення.
 
 ---
 
-## 0. Source and extraction status
+## 0. Джерело та стан опрацювання
 
-### Source file read
+### Прочитаний вихідний файл
 
 **S1 — `SD_Spec.docx.pdf`**
 
-The complete 13-page specification was available and read. The following sections were accessible:
+Повна специфікація обсягом 13 сторінок була доступна та прочитана. Доступні розділи:
 
-- §0 — Customer Request
-- §1 — Discovery / Problem Analysis
-- §2 — Product Vision + Initial Product Scope
-- §3 — Stakeholder Needs & Stakeholder Requirements, including BR-01–BR-12
-- §4 — Prioritization of Needs + Candidate MVP
-- §5 — Detailed Functional Requirements / User Stories + Acceptance Criteria
-- §6 — Quality Attributes + Security Requirements
-- §7 — Feasibility, Estimation & Risk Assessment
-- §8 — MVP / Release Scope and Updated NFRs
-- §9 — UX/UI & Interaction Design (heading available; no further detailed requirements in the supplied pages)
+- §0 — Початковий запит замовника.
+- §1 — Аналіз проблеми.
+- §2 — Бачення продукту та початковий обсяг.
+- §3 — Потреби й вимоги зацікавлених сторін, включно з BR-01–BR-12.
+- §4 — Пріоритизація потреб і попередній MVP.
+- §5 — Детальні функціональні вимоги / User Stories та Acceptance Criteria.
+- §6 — Вимоги до якості та безпеки.
+- §7 — Здійсненність, оцінювання та аналіз ризиків.
+- §8 — MVP / остаточний обсяг релізу й оновлені NFR.
+- §9 — UX/UI та дизайн взаємодії (доступний заголовок; у наданих сторінках немає додаткових детальних вимог).
 
-**Extraction rule:** §8 defines the final Release MVP. Earlier prioritization in §4 is retained as context, not used to override §8. Conflicts and gaps are recorded in the unresolved questions section.
+**Правило вибірки:** §8 визначає остаточний Release MVP. Попередню пріоритизацію з §4 збережено як контекст, але не використано для зміни §8. Суперечності та прогалини зафіксовано серед невирішених питань.
 
-**Classification:**
-- `SOURCE` — explicitly stated in S1.
-- `DERIVED` — follows from one or more source requirements; supporting sources are identified.
-- `PROPOSED` — possible design suggestion, not a binding requirement.
-- `UNRESOLVED` — requires clarification or a human decision.
+**Класифікація:**
+- `SOURCE` — прямо зазначено в S1.
+- `DERIVED` — випливає з однієї або кількох вимог джерела; наведено обґрунтування.
+- `PROPOSED` — можливе дизайнерське рішення, не обов'язкова вимога.
+- `UNRESOLVED` — потребує уточнення або рішення людини.
 
 ---
 
-## 1. Product purpose, actors and release boundaries
+## 1. Мета продукту, актори та межі релізу
 
-### 1.1 Product purpose
+### 1.1 Мета продукту
 
-`SOURCE` — Mini Issue Tracker is an internal web application for a small software development team. It supports registering issues, tracking their lifecycle, assigning responsibility, setting priorities and discussing issues. It also helps the team identify important unresolved issues.
+`SOURCE` — Mini Issue Tracker є внутрішнім вебзастосунком для невеликої команди розробників програмного забезпечення. Він дає змогу реєструвати issues, відстежувати їхній життєвий цикл, призначати відповідальних, визначати пріоритети та обговорювати issues. Також він допомагає команді визначати важливі невирішені issues.
 
-**Source:** S1 §1 Problem Statement and Product Business Goal; §2 Product Vision.
+**Джерело:** S1 §1 — Problem Statement і Product Business Goal; §2 — Product Vision.
 
-### 1.2 Primary actors
+### 1.2 Основні актори
 
-| Actor | Description | Source |
+| Актор | Опис | Джерело |
 |---|---|---|
-| Team Member | Authenticated member of the internal team. Can create issues, view issues, add comments and manage status when assigned to the issue. | S1 §1 Primary Users; §3 BR-01, BR-02, BR-08; §5 US-01, US-02, US-05, US-06, US-07 |
-| Team Lead | Authenticated team lead. Can perform team-member activities and is authorized to assign issues and set/change priority. | S1 §1 Primary Users; §1 Open Questions; §3 BR-01, BR-06; §5 US-03, US-04 |
+| Team Member | Автентифікований учасник внутрішньої команди. Може створювати й переглядати issues, додавати коментарі та керувати статусом, якщо призначений виконавцем issue. | S1 §1 Primary Users; §3 BR-01, BR-02, BR-08; §5 US-01, US-02, US-05, US-06, US-07 |
+| Team Lead | Автентифікований керівник команди. Може виконувати дії учасника, а також призначати issues та встановлювати/змінювати priority. | S1 §1 Primary Users, Open Questions; §3 BR-01, BR-06; §5 US-03, US-04 |
 
-`SOURCE` — The first version has three predefined users: two Team Members and one Team Lead.
+`SOURCE` — У першій версії є три наперед визначені користувачі: два Team Member та один Team Lead.
 
-**Source:** S1 §1 Open Questions; §3 BR-01.
+**Джерело:** S1 §1 Open Questions; §3 BR-01.
 
-### 1.3 Secondary stakeholders
+### 1.3 Другорядні зацікавлені сторони
 
-`SOURCE` — Product Owner / customer and System Administrator are secondary stakeholders. They are interested in outcomes or proper system operation but are not primary users in the main MVP scenarios.
+`SOURCE` — Product Owner / замовник і System Administrator — другорядні зацікавлені сторони. Вони зацікавлені в результатах або належній роботі системи, але не є основними користувачами головних сценаріїв MVP.
 
-**Source:** S1 §1 Stakeholders.
+**Джерело:** S1 §1 Stakeholders.
 
-### 1.4 Release boundary
+### 1.4 Межі релізу
 
-`SOURCE` — The product is a web application for internal team members, not an external customer portal. The first release is limited to the final scope listed in §8.
+`SOURCE` — Продукт є вебзастосунком для внутрішніх учасників команди, а не зовнішнім порталом клієнтів. Перший реліз обмежено остаточним переліком із §8.
 
-**Source:** S1 §1 KC-01–KC-07; §8 Release Scope.
-
----
-
-## 2. Release scope
-
-### 2.1 Included in Release MVP
-
-`SOURCE` — The final Release MVP is **US-01 through US-08**.
-
-| User Story | Name | Included capability | Source |
-|---|---|---|---|
-| US-01 | Create Issue | Register an issue with a title and description. | S1 §5 US-01 |
-| US-02 | View Issues | View the issue list and individual issue details. | S1 §5 US-02 |
-| US-03 | Assign Issue to the responsible team member | Assign one team member as the issue assignee. | S1 §5 US-03 |
-| US-04 | Set Issue Priority | Set or change issue priority. | S1 §5 US-04 |
-| US-05 | Track Issue Progress | View the current issue status. | S1 §5 US-05 |
-| US-06 | Add Comment | Add comments to an issue. | S1 §5 US-06 |
-| US-07 | Update Issue Status | Change issue status according to the specified rules. | S1 §5 US-07; §3 BR-07, BR-08 |
-| US-08 | View Important Open Issues | Find High/Critical issues that are not Closed. | S1 §5 US-08; §3 BR-09, BR-09.1 |
-
-**Source:** S1 §8 MVP / Release Scope.
-
-### 2.2 Deferred
-
-`SOURCE` — **US-09 — Attach files to an issue** is deferred and is not part of the first release.
-
-The specification identifies additional implementation needs for attachments, including file storage, file-size limits, malware scanning and backup.
-
-**Source:** S1 §5 US-09; §7 Recommended scope adjustment; §8 Deferred.
-
-### 2.3 Future requirements
-
-`SOURCE` — The following stakeholder requirements are future requirements, not part of the current Release MVP:
-
-- `SR-10` — Automatic issue categorization.
-- `SR-11` — Automatic priority recommendation.
-
-**Source:** S1 §3 SR-10, SR-11; §4 Future / Deferred Requirements; §8 Future.
-
-`SOURCE` — If AI functionality is implemented in the future, it must be recommendation-based. It must not automatically change category or priority without a user action.
-
-**Source:** S1 §3 BR-12.
-
-### 2.4 Explicitly out of scope
-
-`SOURCE` — The following are outside the current product scope:
-
-- Customer support portal.
-- Billing.
-- Source-code hosting.
-- Continuous Integration / Continuous Delivery.
-- Time tracking.
-- Full project management.
-- Mobile application.
-- Integration with GitHub, GitLab, Jira or other issue trackers in the first version.
-- Issue attachments in the first release.
-- Automatic issue categorization and automatic priority recommendation in the first release.
-- Issue deletion.
-- Separate user-facing change history.
-
-**Sources:** S1 §1 KC-05, KC-06; §2 Out of Scope; §3 BR-10, BR-11; §8 Release Scope.
-
-`DERIVED` — The UX/UI design must not introduce screens, controls or flows for deferred/future functions as if they were available in the current release.
-
-**Reason:** Only US-01–US-08 are included in the final Release MVP; US-09 is deferred and SR-10/SR-11 are future requirements.
-
-**Source:** S1 §8.
+**Джерело:** S1 §1 KC-01–KC-07; §8 Release Scope.
 
 ---
 
-## 3. Included User Stories and Acceptance Criteria
+## 2. Обсяг релізу
 
-All acceptance criteria below preserve their original identifiers. The four US-03 criteria are unnumbered in S1; they are referenced by their original position and are not assigned invented AC IDs.
+### 2.1 Включено до Release MVP
 
-### US-01 — Create Issue
+`SOURCE` — Остаточний Release MVP включає **US-01–US-08**.
 
-**Actor:** Team Member (any authenticated team member).  
-**Goal:** Create an issue with a title and description so that a problem is recorded and can be tracked.
-
-**Source:** S1 §5 US-01; §3 BR-01, BR-02.
-
-| Original ID | Acceptance criterion | Type | Source |
+| User Story | Назва | Можливість у релізі | Джерело |
 |---|---|---|---|
-| AC-01.1 | The user can enter a Title and a Description. | SOURCE | S1 §5 US-01, AC-01.1 |
-| AC-01.2 | Title is required. | SOURCE | S1 §5 US-01, AC-01.2 |
-| AC-01.3 | Description is required. | SOURCE | S1 §5 US-01, AC-01.3 |
-| AC-01.4 | After creation, the issue receives an ID, status = Open, created_at and author. | SOURCE | S1 §5 US-01, AC-01.4 |
-| AC-01.5 | After creation, the issue priority is not set. | SOURCE | S1 §5 US-01, AC-01.5; §3 BR-04 |
+| US-01 | Створити issue | Зареєструвати заявку з назвою й описом. | S1 §5 US-01 |
+| US-02 | Переглянути issues | Перегляд списку й деталей окремих issues. | S1 §5 US-02 |
+| US-03 | Призначити відповідального | Призначити одного учасника команди виконавцем issue. | S1 §5 US-03 |
+| US-04 | Установити пріоритет issue | Установити або змінити priority. | S1 §5 US-04 |
+| US-05 | Відстежувати прогрес issue | Переглянути поточний status. | S1 §5 US-05 |
+| US-06 | Додати коментар | Додавати коментарі до issue. | S1 §5 US-06 |
+| US-07 | Оновити статус issue | Змінити status відповідно до встановлених правил. | S1 §5 US-07; §3 BR-07, BR-08 |
+| US-08 | Переглянути важливі незакриті issues | Знайти High/Critical issues зі статусом, відмінним від Closed. | S1 §5 US-08; §3 BR-09, BR-09.1 |
 
-**Additional source examples — not additional ACs:**
+**Джерело:** S1 §8 MVP / Release Scope.
 
-- The Gherkin example for successful creation shows an authenticated user entering a title and description and clicking Create. The result is a new issue with status Open, a unique ID and the current user as author.
-- The Gherkin example for an empty title says the issue is not created and the system displays `Title is required`.
+### 2.2 Відкладено (Deferred)
 
-**Source:** S1 §5, Gherkin scenarios for AC-01 and AC-02.
+`SOURCE` — **US-09 — Прикріплення файлів до issue** відкладено; це не частина першого релізу.
 
-`DERIVED` — Both Title and Description must be present for successful creation because AC-01.2 and AC-01.3 independently mark them as required.
+У специфікації згадано додаткові потреби для вкладень: сховище файлів, обмеження розміру, перевірка на шкідливі програми та резервне копіювання.
 
-**Source:** S1 §5 AC-01.2, AC-01.3.
+**Джерело:** S1 §5 US-09; §7 рекомендоване коригування обсягу; §8 Deferred.
 
-`SOURCE` — Any authenticated team member may create an issue; creation is not restricted to Team Lead.
+### 2.3 Майбутні вимоги (Future)
 
-**Source:** S1 §1 Open Questions; §3 BR-02.
+`SOURCE` — Наступні вимоги зацікавлених сторін заплановані на майбутнє й не входять до поточного Release MVP:
 
-### US-02 — View Issues
+- `SR-10` — Автоматична категоризація issue.
+- `SR-11` — Автоматична рекомендація priority.
 
-**Actor:** Team Member.  
-**Goal:** View registered issues and inspect their current details.
+**Джерело:** S1 §3 SR-10, SR-11; §4 Future / Deferred; §8 Future.
 
-**Source:** S1 §5 US-02; §3 BR-01.
+`SOURCE` — Якщо AI-функції будуть реалізовані пізніше, вони мають лише рекомендаційний характер. Система не повинна автоматично змінювати category або priority без дії користувача.
 
-| Original ID | Acceptance criterion | Type | Source |
+**Джерело:** S1 §3 BR-12.
+
+### 2.4 Явно поза обсягом
+
+`SOURCE` — До поточного обсягу продукту не належать:
+
+- Портал підтримки клієнтів.
+- Білінг.
+- Хостинг вихідного коду.
+- Безперервна інтеграція та доставка (CI/CD).
+- Облік часу.
+- Повне керування проєктами.
+- Мобільний застосунок.
+- Інтеграції з GitHub, GitLab, Jira або іншими issue trackers у першій версії.
+- Прикріплення файлів до issues у першому релізі.
+- Автоматична категоризація й автоматична рекомендація priority у першому релізі.
+- Видалення issue.
+- Окрема видима користувачеві історія змін.
+
+**Джерела:** S1 §1 KC-05, KC-06; §2 Out of Scope; §3 BR-10, BR-11; §8 Release Scope.
+
+`DERIVED` — UX/UI-дизайн не повинен представляти екрани, елементи керування чи сценарії відкладених/майбутніх функцій як доступні в поточному релізі.
+
+**Обґрунтування:** Остаточний Release MVP включає лише US-01–US-08; US-09 відкладено, а SR-10/SR-11 — майбутні вимоги.
+
+**Джерело:** S1 §8.
+
+---
+
+## 3. Включені User Stories та Acceptance Criteria
+
+Усі наведені нижче критерії приймання зберігають вихідні ідентифікатори. Чотири критерії US-03 у S1 не пронумеровані; посилання на них збережено за початковим порядком, без вигаданих AC-ID.
+
+### US-01 — Створити issue
+
+**Актор:** Team Member (будь-який автентифікований учасник команди).  
+**Мета:** Створити issue з назвою й описом, щоб зафіксувати проблему для відстеження.
+
+**Джерело:** S1 §5 US-01; §3 BR-01, BR-02.
+
+| Вихідний ID | Критерій приймання | Тип | Джерело |
 |---|---|---|---|
-| AC-02.1 | An authenticated team member can view the list of registered issues. | SOURCE | S1 §5 US-02, AC-02.1 |
-| AC-02.2 | Each issue in the list displays at least: ID, Title, Status, Priority and Assignee if one is assigned. | SOURCE | S1 §5 US-02, AC-02.2 |
-| AC-02.3 | The user can select an issue from the list and open its details page. | SOURCE | S1 §5 US-02, AC-02.3 |
-| AC-02.4 | The issue details page displays: ID, Title, Description, Status, Priority, Assignee if assigned, Author and Created at. | SOURCE | S1 §5 US-02, AC-02.4 |
-| AC-02.5 | If there are no registered issues, the system displays an empty list or a message indicating that there are no issues. | SOURCE | S1 §5 US-02, AC-02.5 |
+| AC-01.1 | Користувач може ввести Title та Description. | SOURCE | S1 §5 US-01, AC-01.1 |
+| AC-01.2 | Title є обов'язковим. | SOURCE | S1 §5 US-01, AC-01.2 |
+| AC-01.3 | Description є обов'язковим. | SOURCE | S1 §5 US-01, AC-01.3 |
+| AC-01.4 | Після створення issue отримує ID, status = Open, created_at та author. | SOURCE | S1 §5 US-01, AC-01.4 |
+| AC-01.5 | Після створення priority issue не встановлено. | SOURCE | S1 §5 US-01, AC-01.5; §3 BR-04 |
 
-`SOURCE` — Assignee is displayed conditionally: only if an assignee has been assigned.
+**Додаткові приклади з джерела — не додаткові AC:**
 
-**Source:** S1 §5 AC-02.2 and AC-02.4.
+- Gherkin-приклад успішного створення показує, як автентифікований користувач вводить назву й опис і натискає Create. У результаті створюється issue зі статусом Open, унікальним ID та поточним користувачем як автором.
+- Gherkin-приклад порожньої назви показує: issue не створюється, система відображає `Title is required`.
 
-### US-03 — Assign Issue to the responsible team member
+**Джерело:** S1 §5, Gherkin-сценарії для AC-01 і AC-02.
 
-**Actor:** Team Lead.  
-**Goal:** Assign an issue to a team member so that responsibility for its execution is clear.
+`DERIVED` — Для успішного створення потрібні і Title, і Description, оскільки AC-01.2 та AC-01.3 окремо визначають їх як обов'язкові.
 
-**Source:** S1 §5 US-03; §1 Open Questions.
+**Джерело:** S1 §5 AC-01.2, AC-01.3.
 
-**Acceptance Criteria 03 — four original unnumbered points:**
+`SOURCE` — Будь-який автентифікований учасник команди може створити issue; створення не обмежено роллю Team Lead.
 
-| Original reference | Acceptance criterion | Type | Source |
+**Джерело:** S1 §1 Open Questions; §3 BR-02.
+
+### US-02 — Переглянути issues
+
+**Актор:** Team Member.  
+**Мета:** Переглядати зареєстровані issues та поточні деталі.
+
+**Джерело:** S1 §5 US-02; §3 BR-01.
+
+| Вихідний ID | Критерій приймання | Тип | Джерело |
 |---|---|---|---|
-| US-03, AC, point 1 | One assignee can be selected. | SOURCE | S1 §5 US-03, Acceptance Criteria 03, bullet 1 |
-| US-03, AC, point 2 | The assignee must be a member of the team. | SOURCE | S1 §5 US-03, Acceptance Criteria 03, bullet 2 |
-| US-03, AC, point 3 | Only Team Lead can assign an issue. | SOURCE | S1 §5 US-03, Acceptance Criteria 03, bullet 3; §1 Open Questions |
-| US-03, AC, point 4 | The current assignee is displayed in the issue. | SOURCE | S1 §5 US-03, Acceptance Criteria 03, bullet 4 |
+| AC-02.1 | Автентифікований учасник команди може переглянути список зареєстрованих issues. | SOURCE | S1 §5 US-02, AC-02.1 |
+| AC-02.2 | Для кожного issue у списку відображаються принаймні ID, Title, Status, Priority і Assignee, якщо його призначено. | SOURCE | S1 §5 US-02, AC-02.2 |
+| AC-02.3 | Користувач може вибрати issue зі списку та відкрити сторінку деталей. | SOURCE | S1 §5 US-02, AC-02.3 |
+| AC-02.4 | Сторінка деталей показує ID, Title, Description, Status, Priority, Assignee (якщо призначено), Author та Created at. | SOURCE | S1 §5 US-02, AC-02.4 |
+| AC-02.5 | Якщо зареєстрованих issues немає, система показує порожній список або повідомлення про їхню відсутність. | SOURCE | S1 §5 US-02, AC-02.5 |
 
-`DERIVED` — The assignment control must not allow selecting more than one assignee for a single issue.
+`SOURCE` — Assignee показується умовно: якщо його призначено.
 
-**Reason:** US-03, AC, point 1 explicitly permits selecting one assignee.
+**Джерело:** S1 §5 AC-02.2 і AC-02.4.
 
-**Source:** S1 §5 US-03, Acceptance Criteria 03, bullet 1.
+### US-03 — Призначити issue відповідальному члену команди
 
-### US-04 — Set Issue Priority
+**Актор:** Team Lead.  
+**Мета:** Призначити issue учаснику команди, щоб було зрозуміло, хто відповідає за його виконання.
 
-**Actor:** Team Lead.  
-**Goal:** Set the issue priority so that the team can determine the order of work.
+**Джерело:** S1 §5 US-03; §1 Open Questions.
 
-**Source:** S1 §5 US-04; §3 BR-05, BR-06.
+**Критерії приймання 03 — чотири вихідні ненумеровані пункти:**
 
-| Original ID | Acceptance criterion | Type | Source |
+| Вихідне посилання | Критерій приймання | Тип | Джерело |
 |---|---|---|---|
-| AC-04.1 | Allowed values for a set Priority are Low, Normal, High and Critical. | SOURCE | S1 §5 US-04, AC-04.1 |
-| AC-04.2 | Only Team Lead can set and change priority. | SOURCE | S1 §5 US-04, AC-04.2; §3 BR-06 |
+| US-03, AC, пункт 1 | Можна вибрати одного assignee. | SOURCE | S1 §5 US-03, Acceptance Criteria 03, пункт 1 |
+| US-03, AC, пункт 2 | Assignee має бути членом команди. | SOURCE | S1 §5 US-03, Acceptance Criteria 03, пункт 2 |
+| US-03, AC, пункт 3 | Призначати issue може лише Team Lead. | SOURCE | S1 §5 US-03, Acceptance Criteria 03, пункт 3; §1 Open Questions |
+| US-03, AC, пункт 4 | Поточний assignee відображається в issue. | SOURCE | S1 §5 US-03, Acceptance Criteria 03, пункт 4 |
 
-`SOURCE` — Before a priority is set, the issue may have an unset/empty priority. `Not Set` means absence of a priority, not a fifth priority level.
+`DERIVED` — Елемент призначення не повинен дозволяти вибирати більше одного assignee для issue.
 
-**Source:** S1 §1 Open Questions; §3 BR-04, BR-05.
+**Обґрунтування:** Пункт 1 критеріїв US-03 прямо передбачає вибір одного assignee.
 
-### US-05 — Track Issue Progress
+**Джерело:** S1 §5 US-03, Acceptance Criteria 03, пункт 1.
 
-**Actor:** Team Member.  
-**Goal:** See the current status of an issue to understand its current progress.
+### US-04 — Установити priority issue
 
-**Source:** S1 §5 US-05.
+**Актор:** Team Lead.  
+**Мета:** Визначити пріоритет issue, щоб команда могла визначити порядок роботи.
 
-| Original ID | Acceptance criterion | Type | Source |
+**Джерело:** S1 §5 US-04; §3 BR-05, BR-06.
+
+| Вихідний ID | Критерій приймання | Тип | Джерело |
 |---|---|---|---|
-| AC-05.1 | The current status is displayed for every issue. | SOURCE | S1 §5 US-05, AC-05.1 |
-| AC-05.2 | Status is displayed on the issue page. | SOURCE | S1 §5 US-05, AC-05.2 |
-| AC-05.3 | Status is displayed in the issues list. | SOURCE | S1 §5 US-05, AC-05.3 |
+| AC-04.1 | Допустимі значення встановленого Priority: Low, Normal, High, Critical. | SOURCE | S1 §5 US-04, AC-04.1 |
+| AC-04.2 | Установлювати та змінювати priority може лише Team Lead. | SOURCE | S1 §5 US-04, AC-04.2; §3 BR-06 |
 
-### US-06 — Add Comment
+`SOURCE` — До встановлення пріоритету issue може мати невстановлене/порожнє значення. `Not Set` означає відсутність пріоритету, а не п'ятий рівень.
 
-**Actor:** Team Member.  
-**Goal:** Add comments to an issue to discuss the problem.
+**Джерело:** S1 §1 Open Questions; §3 BR-04, BR-05.
 
-**Source:** S1 §5 US-06.
+### US-05 — Відстежувати прогрес issue
 
-| Original ID | Acceptance criterion | Type | Source |
+**Актор:** Team Member.  
+**Мета:** Бачити поточний статус issue, щоб розуміти прогрес роботи.
+
+**Джерело:** S1 §5 US-05.
+
+| Вихідний ID | Критерій приймання | Тип | Джерело |
 |---|---|---|---|
-| AC-06.1 | Comment text cannot be empty. | SOURCE | S1 §5 US-06, AC-06.1 |
-| AC-06.2 | An added comment is stored and shown for the issue. | SOURCE | S1 §5 US-06, AC-06.2 |
-| AC-06.3 | The comment author is stored and displayed. | SOURCE | S1 §5 US-06, AC-06.3 |
-| AC-06.4 | The comment creation date/time is stored and displayed. | SOURCE | S1 §5 US-06, AC-06.4 |
-| AC-06.5 | If saving fails, no comment is created and an error is produced. | SOURCE | S1 §5 US-06, AC-06.5 |
+| AC-05.1 | Поточний status відображається для кожного issue. | SOURCE | S1 §5 US-05, AC-05.1 |
+| AC-05.2 | Status відображається на сторінці issue. | SOURCE | S1 §5 US-05, AC-05.2 |
+| AC-05.3 | Status відображається у списку issues. | SOURCE | S1 §5 US-05, AC-05.3 |
 
-`DERIVED` — A failed comment save must not be represented as a successful comment or appear in the saved comments list.
+### US-06 — Додати коментар
 
-**Reason:** AC-06.5 explicitly says a failed save does not create a comment.
+**Актор:** Team Member.  
+**Мета:** Додавати коментарі до issue для обговорення проблеми.
 
-**Source:** S1 §5 AC-06.5.
+**Джерело:** S1 §5 US-06.
 
-### US-07 — Update Issue Status
-
-**Actor:** Team Member who is responsible for the issue (the current assignee).  
-**Goal:** Change the issue status so that the team can see the current state of work.
-
-**Source:** S1 §5 US-07; §3 BR-07, BR-08, BR-08.1.
-
-| Original ID | Acceptance criterion | Type | Source |
+| Вихідний ID | Критерій приймання | Тип | Джерело |
 |---|---|---|---|
-| AC-07.1 | A new issue is created with status Open. | SOURCE | S1 §5 US-07, AC-07.1; §3 BR-03 |
-| AC-07.2 | Allowed statuses are Open, In Progress, Resolved and Closed. | SOURCE | S1 §5 US-07, AC-07.2; §3 BR-07 |
-| AC-07.3 | After a status change, the system stores the new value and displays it on the next view of the issue. | SOURCE | S1 §5 US-07, AC-07.3 |
-| AC-07.4 | A user who is not the issue assignee cannot change its status. | SOURCE | S1 §5 US-07, AC-07.4 |
-| AC-07.5 | The system does not allow a status value outside the defined list. | SOURCE | S1 §5 US-07, AC-07.5 |
+| AC-06.1 | Текст коментаря не може бути порожнім. | SOURCE | S1 §5 US-06, AC-06.1 |
+| AC-06.2 | Доданий коментар зберігається та відображається для issue. | SOURCE | S1 §5 US-06, AC-06.2 |
+| AC-06.3 | Автор коментаря зберігається та відображається. | SOURCE | S1 §5 US-06, AC-06.3 |
+| AC-06.4 | Дата й час створення коментаря зберігаються та відображаються. | SOURCE | S1 §5 US-06, AC-06.4 |
+| AC-06.5 | Якщо збереження не вдалося, коментар не створюється, виникає помилка. | SOURCE | S1 §5 US-06, AC-06.5 |
 
-**Allowed status transitions:**
+`DERIVED` — Невдало збережений коментар не можна представляти як успішно доданий або показувати серед збережених коментарів.
 
-| From | To | Type | Source |
+**Обґрунтування:** AC-06.5 прямо визначає, що за невдалого збереження коментар не створюється.
+
+**Джерело:** S1 §5 AC-06.5.
+
+### US-07 — Оновити статус issue
+
+**Актор:** Team Member, який відповідає за issue (поточний assignee).  
+**Мета:** Змінити status, щоб команда бачила поточний етап роботи.
+
+**Джерело:** S1 §5 US-07; §3 BR-07, BR-08, BR-08.1.
+
+| Вихідний ID | Критерій приймання | Тип | Джерело |
+|---|---|---|---|
+| AC-07.1 | Новий issue створюється зі статусом Open. | SOURCE | S1 §5 US-07, AC-07.1; §3 BR-03 |
+| AC-07.2 | Допустимі статуси: Open, In Progress, Resolved, Closed. | SOURCE | S1 §5 US-07, AC-07.2; §3 BR-07 |
+| AC-07.3 | Після зміни статусу система зберігає нове значення та показує його за наступного перегляду issue. | SOURCE | S1 §5 US-07, AC-07.3 |
+| AC-07.4 | Користувач, який не є assignee цього issue, не може змінити його статус. | SOURCE | S1 §5 US-07, AC-07.4 |
+| AC-07.5 | Система не допускає значення статусу поза визначеним переліком. | SOURCE | S1 §5 US-07, AC-07.5 |
+
+**Дозволені переходи статусів:**
+
+| Звідки | Куди | Тип | Джерело |
 |---|---|---|---|
 | Open | In Progress | SOURCE | S1 §3 BR-08.1 |
 | In Progress | Resolved | SOURCE | S1 §3 BR-08.1 |
 | Resolved | Closed | SOURCE | S1 §3 BR-08.1 |
 | Resolved | In Progress | SOURCE | S1 §3 BR-08.1 |
 
-`SOURCE` — All other status transitions are prohibited.
+`SOURCE` — Усі інші переходи статусів заборонені.
 
-**Source:** S1 §3 BR-08.1.
+**Джерело:** S1 §3 BR-08.1.
 
-`DERIVED` — Closed has no allowed outgoing transition because it is not listed as a source state in any permitted transition, and all other transitions are explicitly prohibited.
+`DERIVED` — Closed не має дозволених вихідних переходів, оскільки не вказаний як початковий стан жодного дозволеного переходу, а решту переходів прямо заборонено.
 
-**Source:** S1 §3 BR-08.1.
+**Джерело:** S1 §3 BR-08.1.
 
-`DERIVED` — The status-changing user must be the current assignee. A Team Lead who is not the current assignee must not be allowed to change status.
+`DERIVED` — Змінювати статус може лише поточний assignee. Team Lead, який не є поточним assignee, також не має права змінити статус.
 
-**Reason:** BR-08 gives status-changing ability to the member responsible for the issue; AC-07.4 explicitly prohibits a user who is not the assignee from changing status. The Team Lead's separate assignment/priority permissions do not override this restriction.
+**Обґрунтування:** BR-08 надає право відповідальному учасникові, AC-07.4 забороняє зміни всім не-assignee. Окремі права Team Lead на призначення та priority не скасовують цього обмеження.
 
-**Sources:** S1 §3 BR-08; §5 AC-07.4.
+**Джерела:** S1 §3 BR-08; §5 AC-07.4.
 
-### US-08 — View Important Open Issues
+### US-08 — Переглянути важливі незакриті issues
 
-**Actor:** Team Member.  
-**Goal:** Quickly see important issues that need priority attention.
+**Актор:** Team Member.  
+**Мета:** Швидко бачити важливі issues, які потребують першочергової уваги.
 
-**Source:** S1 §5 US-08; §3 BR-09, BR-09.1.
+**Джерело:** S1 §5 US-08; §3 BR-09, BR-09.1.
 
-| Original ID | Acceptance criterion | Type | Source |
+| Вихідний ID | Критерій приймання | Тип | Джерело |
 |---|---|---|---|
-| AC-08.1 | An issue with priority = High and status other than Closed appears in Important Issues. | SOURCE | S1 §5 US-08, AC-08.1 |
-| AC-08.2 | An issue with priority = Critical and status other than Closed appears in Important Issues. | SOURCE | S1 §5 US-08, AC-08.2 |
-| AC-08.3 | Issues with priority = Low or Normal do not appear in Important Issues. | SOURCE | S1 §5 US-08, AC-08.3 |
-| AC-08.4 | Issues with status = Closed do not appear, regardless of priority. | SOURCE | S1 §5 US-08, AC-08.4 |
+| AC-08.1 | Issue з priority = High і status, відмінним від Closed, відображається в Important Issues. | SOURCE | S1 §5 US-08, AC-08.1 |
+| AC-08.2 | Issue з priority = Critical і status, відмінним від Closed, відображається в Important Issues. | SOURCE | S1 §5 US-08, AC-08.2 |
+| AC-08.3 | Issues із priority Low або Normal не відображаються в Important Issues. | SOURCE | S1 §5 US-08, AC-08.3 |
+| AC-08.4 | Issues зі статусом Closed не відображаються, незалежно від priority. | SOURCE | S1 §5 US-08, AC-08.4 |
 
-`SOURCE` — Resolved means resolved but not yet closed. Until the issue reaches Closed, it remains active and may appear in Important Issues according to its priority.
+`SOURCE` — Resolved означає вирішений, але ще не закритий issue. До переходу в Closed він лишається активним та може відображатися серед Important Issues за відповідного priority.
 
-**Source:** S1 §3 BR-09.1.
+**Джерело:** S1 §3 BR-09.1.
 
-`DERIVED` — Important Issues includes High/Resolved and Critical/Resolved issues. Resolved must not be treated as Closed.
+`DERIVED` — Important Issues включає High/Resolved і Critical/Resolved. Resolved не можна прирівнювати до Closed.
 
-**Reason:** AC-08.1 and AC-08.2 exclude only Closed status; BR-09.1 explicitly confirms that Resolved remains active until Closed.
+**Обґрунтування:** AC-08.1 та AC-08.2 виключають лише Closed, а BR-09.1 прямо підтверджує, що Resolved залишається активним до Closed.
 
-**Sources:** S1 §3 BR-09.1; §5 AC-08.1, AC-08.2.
+**Джерела:** S1 §3 BR-09.1; §5 AC-08.1, AC-08.2.
 
-`DERIVED` — An issue with priority Not Set is not Important because the only included priority values are High and Critical.
+`DERIVED` — Issue з priority Not Set не є Important, оскільки для включення потрібні лише High або Critical.
 
-**Reason:** BR-04 defines Not Set as an unset priority; AC-08.1–AC-08.3 specify the included and excluded priority values.
+**Обґрунтування:** BR-04 визначає Not Set як відсутність priority, а AC-08.1–AC-08.3 встановлюють включені та виключені значення priority.
 
-**Sources:** S1 §3 BR-04, BR-09; §5 AC-08.1–AC-08.3.
+**Джерела:** S1 §3 BR-04, BR-09; §5 AC-08.1–AC-08.3.
 
 ---
 
