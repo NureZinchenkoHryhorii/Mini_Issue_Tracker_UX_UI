@@ -106,7 +106,7 @@ No accessibility certification or real-user usability testing was conducted.
 
 | ID | Severity | Location | Source | Evidence | Minimal correction / disposition |
 |---|---|---|---|---|---|
-| **DEF-01** | **Major** | Earlier E6 `S-03 ISS-007`, Comments section | US-01 / D-09, sample new-issue state | E6 showed **two ISS-002 historical comments** inside newly created ISS-007. A previous assistant asked for removal, but the image still displayed them. It is unknown whether the final Agent-edited P1 file has them. | Inspect **current final ISS-007**. If inherited comments remain, remove them from *new-issue baseline* without removing the comment input; document actual correction and rescreenshot. **Status: OPEN — requires final verification.** |
+| **DEF-01** | **Major** | Earlier E6 `S-03 ISS-007`, Comments section | US-01 / D-09, sample new-issue state | E6 showed **two ISS-002 historical comments** inside newly created ISS-007. A previous assistant asked for removal, but the image still displayed them. It is unknown whether the final Agent-edited P1 file has them. | Inspect **current final ISS-007**. If inherited comments remain, remove them from *new-issue baseline* without removing the comment input; document actual correction and rescreenshot. **Status: FIXED / RETEST PASS — student-reported on 2026-11-11.** Student removed the inherited ISS-002 comments from ISS-007, then tested the Present path `All → Create Issue → Create → ISS-007`: ISS-007's comments area is empty while comment input and Add comment remain; the two original comments are still present on ISS-002. This is a student-performed retest, **not independently observed**; a fresh screenshot is still outstanding. |
 | **UX-01** | Minor/Medium | E4 Resolved status chooser | BR-08.1 | Single `Closed or In Progress` value-like field | Render distinct choices within approved Status control; keep Apply. **Status: proposed** |
 | **UX-02** | Minor | S-03 Assignee/Priority editors | D-06 / usability clarity | E3/E6 fields resemble free text | Clarify single-select visual cue, do not add workflow. **Status: proposed** |
 | **UX-03** | Minor/Medium if reproduced | S-03 comment input | AC-06.1 | Agent report suggested clicking field opens empty-validation state; no live observation | In Present verify that validation occurs on **empty submission**, not mere field focus. **Status: needs reproduction** |
@@ -114,13 +114,26 @@ No accessibility certification or real-user usability testing was conducted.
 
 ### Verification and disposition procedure
 
-The student reviews each row, accepts or rejects it with a reason, applies only accepted minimal corrections, and repeats the relevant Present/manual check. **No canvas changes were made by ChatGPT in this audit.** Until final screenshots confirm DEF-01 is absent or fixed, the evidence set is **not complete**.
+The student reviews each row, accepts or rejects it with a reason, applies only accepted minimal corrections, and repeats the relevant Present/manual check. **No canvas changes were made by ChatGPT in this audit.** DEF-01 has been marked FIXED / RETEST PASS based on the student's manual verification; the final screenshot evidence set is **not yet complete**.
 
 ## Final assessment
 
-1. **UI design coverage: PARTIAL.** Most required visual states and source rules are shown, but a visible **ISS-007 inherited-comments contradiction (DEF-01)** requires a current-state check; some AC also require interactions/implementation not directly witnessed. Do **not** state that all 33 AC have passed.
+1. **UI design coverage: PARTIAL.** Most required visual states and source rules are shown, and the earlier **ISS-007 inherited-comments contradiction (DEF-01)** is reported fixed and retested by the student, but remains without final independent visual evidence; some AC also require interactions/implementation not directly witnessed. Do **not** state that all 33 AC have passed.
 2. **Prototype evidence: REPORTED.** The student reported working navigation, controls, four legal transitions, disabled restrictions, and comment examples after using Figma Present. The reviewer has **not** watched the final live prototype nor verified its current interaction bindings.
 3. **Implementation tests outstanding:** authentication and server-side role checks, exact status transition authorization, field/enum validation, database creation/uniqueness/persistence, comment failure/no-save behavior, timestamp generation, actual dynamic Important filtering and reappearance/disappearance, data consistency after reopening, HTTPS/TLS, backup, and response time. These are not evidenced by Figma.
 4. **Control B:** explicitly **SKIPPED**, not accepted/approved.
 
-**Evidence requested to close G6:** current final P1 screenshots (legible S-02-A/B, M-01 and validation, S-03 ISS-002/ISS-007, reference role/status and comment states), demonstration test log with operator/date/expected/observed outcomes, final Figma version or share link with appropriate access, and human disposition of DEF-01/UX findings.
+**Evidence requested to close G6:** current final P1 screenshots (including post-fix S-03 ISS-007 and unchanged ISS-002 comments, legible S-02-A/B, M-01 and validation, reference role/status and comment states), demonstration test log with operator/date/expected/observed outcomes, final Figma version or share link with appropriate access, and human disposition of DEF-01/UX findings.
+
+
+## G6 follow-up — 2026-11-11: DEF-01 retest record
+
+| Field | Recorded outcome |
+|---|---|
+| Reporter / operator | Student (manual Figma Present check, self-reported in conversation) |
+| Changed item | S-03 — Issue Details · ISS-007: remove two inherited ISS-002 comments only |
+| Test procedure | Navigate All → Create Issue → Create → ISS-007; check empty Comments section and retained Comment input / Add comment; inspect ISS-002 for its original two comments |
+| Reported observation | Both checks passed, as confirmed by student |
+| Defect disposition | **DEF-01 — FIXED; RETEST PASS (student-reported)** |
+| Independent evidence | Fresh post-fix screenshots / live visual inspection not yet provided; no direct reviewer observation |
+| Follow-up | Add screenshot evidence to final submission and record the Figma version used |
