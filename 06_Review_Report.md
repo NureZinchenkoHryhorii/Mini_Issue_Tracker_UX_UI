@@ -107,7 +107,7 @@ No accessibility certification or real-user usability testing was conducted.
 | ID | Severity | Location | Source | Evidence | Minimal correction / disposition |
 |---|---|---|---|---|---|
 | **DEF-01** | **Major** | Earlier E6 `S-03 ISS-007`, Comments section | US-01 / D-09, sample new-issue state | E6 showed **two ISS-002 historical comments** inside newly created ISS-007. A previous assistant asked for removal, but the image still displayed them. It is unknown whether the final Agent-edited P1 file has them. | Inspect **current final ISS-007**. If inherited comments remain, remove them from *new-issue baseline* without removing the comment input; document actual correction and rescreenshot. **Status: FIXED / RETEST PASS — student-reported on 2026-11-11.** Student removed the inherited ISS-002 comments from ISS-007, then tested the Present path `All → Create Issue → Create → ISS-007`: ISS-007's comments area is empty while comment input and Add comment remain; the two original comments are still present on ISS-002. This is a student-performed retest, **not independently observed**; a fresh screenshot is still outstanding. |
-| **UX-01** | Minor/Medium | E4 Resolved status chooser | BR-08.1 | Single `Closed or In Progress` value-like field | Render distinct choices within approved Status control; keep Apply. **Status: proposed** |
+| **UX-01** | Minor/Medium | E4 Resolved status chooser | BR-08.1 | Single `Closed or In Progress` value-like field | **FIXED / RETEST PASS (student-reported on 2026-11-11):** separated `Closed` and `In Progress` as distinct choices within the Resolved status control, retained Apply, and checked both allowed Resolved transitions and forbidden alternatives in Figma Present. Final post-fix screenshot not yet independently inspected. |
 | **UX-02** | Minor | S-03 Assignee/Priority editors | D-06 / usability clarity | E3/E6 fields resemble free text | Clarify single-select visual cue, do not add workflow. **Status: proposed** |
 | **UX-03** | Minor/Medium if reproduced | S-03 comment input | AC-06.1 | Agent report suggested clicking field opens empty-validation state; no live observation | In Present verify that validation occurs on **empty submission**, not mere field focus. **Status: needs reproduction** |
 | **DEF-02** | Evidence gap | Final P1 version and final screenshot package | G6 verification method | Earlier F1 stills exist; no fresh final P1 screenshots or direct live Figma inspection | Capture legible final screenshots with Screen/State IDs, Figma version link, and signed manual test record; do not relabel as functional defect. **Status: OPEN evidence gap** |
@@ -137,3 +137,16 @@ The student reviews each row, accepts or rejects it with a reason, applies only 
 | Defect disposition | **DEF-01 — FIXED; RETEST PASS (student-reported)** |
 | Independent evidence | Fresh post-fix screenshots / live visual inspection not yet provided; no direct reviewer observation |
 | Follow-up | Add screenshot evidence to final submission and record the Figma version used |
+
+
+## G6 follow-up — 2026-11-11: UX-01 retest record
+
+| Field | Recorded outcome |
+|---|---|
+| Reporter / operator | Student, testing in Figma Present (self-reported) |
+| Changed item | `Reference — Permissions and status` — Resolved allowed-next selector |
+| Before | One input-like field reading `Closed or In Progress` |
+| After (reported) | Two distinct selectable options, `Closed` and `In Progress`, with the existing Apply action |
+| Retest (reported) | Resolved → Closed works; Resolved → In Progress works; forbidden transitions remain unavailable |
+| Disposition | **UX-01 — FIXED / RETEST PASS (student-reported)** |
+| Evidence limitation | No fresh final screenshot or independent playback of updated Figma file has been supplied for this change |
