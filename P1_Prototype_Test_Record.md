@@ -57,20 +57,20 @@
 
 **Shown in earlier screenshots:** поля й порожні/error states, role/context matrix, status values, два empty-list states, six-row All та four-row Important baseline (T-01–T-08, T-10). Це **не** означає, що всі їхні interactions запущено.
 
-**Немає достатнього підтвердження, щоб написати `10/10 PASS`:** T-02 (обидва Create validation негативні маршрути), T-05 (усі заборонені статусні переходи, крім перевірених прикладів), T-08 (Low/Normal і live filter), T-10 (огляд усього final canvas). У частини інших тестів зафіксоване **лише** student-reported виконання.
+**Немає достатнього підтвердження, щоб написати `10/10 PASS`:** T-02 (обидва validation UI states підтверджені, але Create negative interactions не перевірено), T-05 (усі заборонені статусні переходи, крім перевірених прикладів), T-08 (Low/Normal і live filter), T-10 (огляд усього final canvas). У частини інших тестів зафіксоване **лише** student-reported виконання.
 
 **Після G6-виправлень:** F1-DEF-01 (ISS-007 не успадковує коментарі ISS-002) та F1-UX-01 (два окремі варіанти після Resolved) мають **FIXED / RETEST PASS — STUDENT-REPORTED** у [журналі](Defect_Change_Log.md), але **нові screenshots фінального стану ще не надано**.
 
 ### Додатковий доказ T-02 — 2026-11-21
 
-Учасник команди надав новий скриншот із **Local components** (файл, завантажений у спільний чат: `image(20261121-131811).png`). На ньому видно **порожній Title** і повідомлення **`Title is required`** під полем, тоді як Description заповнено. Це **VISUAL PASS для UI-прикладу missing-Title**, але **не** підтверджує роботу обробника Create або заборону переходу до ISS-007 при помилці. Приклад missing-Description раніше було видно в G6 E5, однак окрему поточну перевірку інтеракції обох сценаріїв не зафіксовано. Доказ надісланий у чаті, PNG поки **не завантажений у GitHub**. Протокол T-02 залишається **UI EXAMPLE VISIBLE / INTERACTION NOT RECORDED**.
+Учасник команди надав новий скриншот із **Local components** (файл, завантажений у спільний чат: `image(20261121-131811).png`). На ньому видно **порожній Title** і повідомлення **`Title is required`** під полем, тоді як Description заповнено. Це **VISUAL PASS для UI-прикладу missing-Title**, але **не** підтверджує роботу обробника Create або заборону переходу до ISS-007 при помилці. Другий новий скриншот із **Local components** (`image(20261121-132043).png`, завантажений у спільний чат) показує **заповнений Title**, **порожній Description** та текст **`Required field`** під ним. **Обидва required-field UI-приклади T-02 підтверджені зображеннями — VISUAL PASS.** Однак взаємодію `Create` при порожньому Title/Description та відсутність success navigation в Present **не перевірено**. Обидва PNG надані в чаті, але ще **не завантажені в GitHub**. Підсумок T-02: **VISUAL PASS / INTERACTION NOT RECORDED**, не повний functional PASS.
 
 ## 5. Граничні негативні сценарії для остаточної перевірки
 
 | ID | Що потрібно натиснути у Present | Очікуваний результат | Поточний evidence |
 |---|---|---|---|
-| NEG-01 | M-01 → порожній Title → Create | Валідація Title, ISS-007 не відкривається | Приклад у G6 E5; **інтеракція не записана** |
-| NEG-02 | M-01 → порожній Description → Create | Валідація Description, ISS-007 не відкривається | Приклад у G6 E5; **інтеракція не записана** |
+| NEG-01 | M-01 → порожній Title → Create | Валідація Title, ISS-007 не відкривається | Підтверджено новим скриншотом `image(20261121-131811).png`; **інтеракція не записана** |
+| NEG-02 | M-01 → порожній Description → Create | Валідація Description, ISS-007 не відкривається | Підтверджено новим скриншотом `image(20261121-132043).png`; **інтеракція не записана** |
 | NEG-03 | Member non-assignee → Assignee/Priority Apply | Заборонені / disabled, жодних змін | Disabled у G6 E4; **hotspot окремо не підтверджений** |
 | NEG-04 | Lead non-assignee ISS-002 → Status Apply | Disabled / без успішного переходу | Скриншот + student-reported check |
 | NEG-05 | Closed → будь-який інший status | Відсутній наступний вибір / Apply disabled | Скриншот + student-reported check |
