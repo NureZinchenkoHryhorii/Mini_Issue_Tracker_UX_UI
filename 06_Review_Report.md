@@ -118,7 +118,7 @@ The student reviews each row, accepts or rejects it with a reason, applies only 
 
 ## Final assessment
 
-1. **UI design coverage: PARTIAL.** Most required visual states and source rules are shown, and the earlier **ISS-007 inherited-comments contradiction (DEF-01)** is reported fixed and retested by the student, but remains without final independent visual evidence; some AC also require interactions/implementation not directly witnessed. Do **not** state that all 33 AC have passed.
+1. **UI design coverage: PARTIAL.** Most required visual states and source rules are shown, and the earlier **ISS-007 inherited-comments contradiction (DEF-01)** is reported fixed and retested by the student, and has now been visually confirmed by a new ISS-007 screenshot supplied on 2026-11-21; some AC also require interactions/implementation not directly witnessed. Do **not** state that all 33 AC have passed.
 2. **Prototype evidence: REPORTED.** The student reported working navigation, controls, four legal transitions, disabled restrictions, and comment examples after using Figma Present. The reviewer has **not** watched the final live prototype nor verified its current interaction bindings.
 3. **Implementation tests outstanding:** authentication and server-side role checks, exact status transition authorization, field/enum validation, database creation/uniqueness/persistence, comment failure/no-save behavior, timestamp generation, actual dynamic Important filtering and reappearance/disappearance, data consistency after reopening, HTTPS/TLS, backup, and response time. These are not evidenced by Figma.
 4. **Control B:** explicitly **SKIPPED**, not accepted/approved.
@@ -135,9 +135,13 @@ The student reviews each row, accepts or rejects it with a reason, applies only 
 | Test procedure | Navigate All → Create Issue → Create → ISS-007; check empty Comments section and retained Comment input / Add comment; inspect ISS-002 for its original two comments |
 | Reported observation | Both checks passed, as confirmed by student |
 | Defect disposition | **DEF-01 — FIXED; RETEST PASS (student-reported)** |
-| Independent evidence | Fresh post-fix screenshots / live visual inspection not yet provided; no direct reviewer observation |
+| Independent evidence | New post-fix screenshot of ISS-007 **provided in chat 2026-11-21** and visually inspected for the missing inherited comments; live Figma/Present not independently opened |
 | Follow-up | Add screenshot evidence to final submission and record the Figma version used |
 
+
+## G6 follow-up — 2026-11-21: current product frames visually reviewed
+
+Two current images in the shared chat, `M-01 — Create Issue · originating All context (1).png` and `S-03 — Issue Details · ISS-007(1).png`, were inspected alongside current S-02-A and ISS-002 images previously supplied. **M-01:** only Title/Description required fields, Cancel and Create. **ISS-007:** Author Lead C, Status Open, Priority Not Set, Assignee Unassigned; **no inherited ISS-002 saved comments**; comment field and Add comment still present. The comment field contains sample *unsent* text, which is not a saved-history comment. **F1-DEF-01: FIXED, student-reported Present retest and now independently visually confirmed in the submitted still image.** **T-10 main-frame scope: VISUAL PASS** for supplied product frames, no unwanted features identified. These stills do not prove final dynamic behavior, backend permissions, or data persistence. New screenshots are chat attachments, not GitHub PNG uploads.
 
 ## G6 follow-up — 2026-11-11: UX-01 retest record
 
