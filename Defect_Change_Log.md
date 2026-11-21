@@ -99,6 +99,11 @@
 
 **Докази майбутнього оновлення:** до фінальної здачі бажано додати версію Figma, читабельні актуальні screenshot після правок, індивідуальні підтвердження учасників та перевірити незакриті сценарії в [`P1_Prototype_Test_Record.md`](P1_Prototype_Test_Record.md). Наявність посилання на Figma сама по собі не доводить, що автор цього журналу відкрив і перевірив live file.
 
+
+### P1 follow-up — 2026-11-21: T-02 validation simulation boundary
+
+Команда надала **два окремих скриншоти** із `Local components / M-01 — Create validation`: порожній Title з `Title is required` та порожній Description з `Required field`. Після уточнення в спільному чаті команда повідомила, що реальне введення й блокування Create в Present — **обмеження симуляції**; це не відтворений функціональний дефект. **VISUAL PASS для обох error-state прикладів**, **interactive submit NOT IMPLEMENTED/NOT TESTED**, backend NOT VERIFIED. Подробиці: [P1 Test Record, T-02](P1_Prototype_Test_Record.md). Персонального тестувальника не встановлено.
+
 ## 5. Відкриті питання та статус готовності
 
 - **Виправлено й повторно перевірено за повідомленнями команди:** F1-DEF-01; F1-UX-01.
