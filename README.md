@@ -16,6 +16,9 @@ https://github.com/NureZinchenkoHryhorii/Mini_Issue_Tracker_UX_UI
 Figma:
 https://www.figma.com/design/S1oyc2GzQYRCKYfuuWnVf6/Untitled--Copy-?node-id=0-1
 
+Video:
+https://youtu.be/42IXM8QFb7w
+
 Склад репозиторію
 -----------------
 - 01_Input_Pack_v1.0.md — аналіз вимог та Source Check.
